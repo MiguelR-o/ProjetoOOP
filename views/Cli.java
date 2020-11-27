@@ -51,7 +51,7 @@ public class Cli {
                    endLoop = true;
                    break;
                 default:
-                    System.out.println("Intrução inválida.");
+                    System.out.println("Instrução inválida.");
             }
         }
     }
