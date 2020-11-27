@@ -9,7 +9,8 @@ public class Cli {
         Company company = null;
         Scanner scanner = new Scanner(System.in);
         String line;
-        while (true) {
+        boolean endLoop = false;
+        while (!endLoop) {
             line = scanner.nextLine();
             String[] command = line.split(" ");
             switch (command[0]) {
@@ -46,6 +47,9 @@ public class Cli {
                     break;
                 case "CF":
                     break;
+                case "":
+                   endLoop = true;
+                   break;
                 default:
                     System.out.println("Intrução inválida.");
             }
