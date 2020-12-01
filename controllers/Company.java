@@ -19,13 +19,18 @@ public interface Company {
     //category and adds the object to the Employees Dic in Company.
 
     boolean hasClient(String nameClient);
-
+    //Checks in companny's client Dic for the key nameClient which contains the client obj
 
     void registerClient(String nameClient);
+    //Creates an object client with the given values and adds it to the Clients Dic in company
 
-    String getClientID(String nameClient);
+    int getClientID(String nameClient);
+    //Searches for the Client object inside Company's client Dic and returns client.getID();
 
     int getEmployeeID(Employee employee);
+    // returns employee.getID();
 
     Employee getProfessional(String name, String category);
+    // Searches in companny's Employees Dic for the Professional inside the given Category Dic with the
+    // key name and returns the object as an Employee
 }
