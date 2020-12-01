@@ -2,6 +2,8 @@ package views;
 
 import controllers.Company;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cli {
@@ -18,7 +20,7 @@ public class Cli {
                     int employeeID = Integer.parseInt(command[1]);
                     String category = command[2];
                     String permission = command[3];
-                    String name = command[4];
+                    String name = nameConcatenation(4,command);
                     if(!company.hasCategory(category)){
                         System.out.println("Categoria inexistente.");
                     }else if(company.validPermission(permission,category)){
@@ -54,5 +56,12 @@ public class Cli {
                     System.out.println("Instrução inválida.");
             }
         }
+    }
+    public String nameConcatenation(int nameStart, String[] commands){
+        String fullName = "";
+        for(int i = nameStart;i < commands.length; i++) {
+            fullName += commands[i] + " ";
+        }
+        return  fullName;
     }
 }
