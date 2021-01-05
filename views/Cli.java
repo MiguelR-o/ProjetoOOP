@@ -1,6 +1,7 @@
 package views;
 
 import controllers.Company;
+import models.Employee;
 
 import java.util.Scanner;
 
@@ -30,12 +31,15 @@ public class Cli {
                 }
                     break;
                 case "RC":
-                    String nameClient = command[1];
+                    //Nome contem espaços e deve ser unico no sistema
+                    // IDCliente numero unico atribuido pelo sistema (starts @ 1)
+                    String  employeeID = command[1];
+                    String nameClient = command[2];
                     if(company.hasClient(nameClient)){
                         System.out.println("Cliente existente.");
                     }else{
                         company.registerClient(nameClient);
-                        System.out.println("Cliente registado com o identificador "+ company.getClientID(nameClient));
+                        System.out.println("Cliente registado com o identificador " + company.getClientID(nameClient));
                     }
                     break;
                 case "RI":
@@ -61,6 +65,7 @@ public class Cli {
                     System.out.println("Instrução inválida.");
             }
         }
+        scanner.close();
     }
     public String nameConcatenation(int nameStart, String[] commands){
         String fullName = "";
