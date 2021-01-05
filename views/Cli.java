@@ -34,7 +34,11 @@ public class Cli {
                     //Nome contem espaços e deve ser unico no sistema
                     // IDCliente numero unico atribuido pelo sistema (starts @ 1)
                     String  employeeID = command[1];
-                    String nameClient = command[2];
+                    // String nameClient = command[2];
+                    String name = "";
+                    for(int i=2 ; i<line.length();i++){
+                       name += command[i];
+                    }
                     if(company.hasClient(nameClient)){
                         System.out.println("Cliente existente.");
                     }else{
