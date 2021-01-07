@@ -18,8 +18,12 @@ public interface Company {
     //Creates instance of one of the classes that implements/extends Employee based on its
     //category and adds the object to the Employees Dic in Company.
 
-    boolean hasClient(String nameClient);
-    //Checks in companny's client Dic for the key nameClient which contains the client obj
+    boolean hasClient(String clientID);
+    //Checks in companny's clients Dic for the key clientID which contains the client obj
+
+    boolean hasClientName(String clientName);
+    //Checks in companny's clients Dic for each key clientID which contains the client obj and
+    //compares Client.getName() with clientName
 
     void registerClient(String nameClient);
     //Creates an object client with the given values and adds it to the Clients Dic in company

@@ -1,7 +1,6 @@
 package views;
 
 import controllers.Company;
-import models.Employee;
 
 import java.util.Scanner;
 
@@ -34,12 +33,11 @@ public class Cli {
                     //Nome contem espaços e deve ser unico no sistema
                     // IDCliente numero unico atribuido pelo sistema (starts @ 1)
                     String  employeeID = command[1];
-                    // String nameClient = command[2];
-                    String name = "";
+                    String nameClient = "";
                     for(int i=2 ; i<line.length();i++){
-                       name += command[i];
+                       nameClient += command[i];
                     }
-                    if(company.hasClient(nameClient)){
+                    if(company.hasClientName(nameClient)){
                         System.out.println("Cliente existente.");
                     }else{
                         company.registerClient(nameClient);
@@ -47,6 +45,28 @@ public class Cli {
                     }
                     break;
                 case "RI":
+                    //Receives a first input and needs to store up to 3 permissions, else takes a default value of Normal
+                    String clientID = command[1];
+                    String itemName = command[2];
+                    Boolean validInput = true;
+                    if(company.hasClient(clientID)){
+                        String[] itemPermissions = new String[3];
+                        //need to find a way to make it read up to 3 lines and store its values ,
+                        //and go back to the Commands loop
+                        String permissionValue = command[0];
+                        //Checks for validity if it fails changes validInput to false
+                        //and proceeds:w
+
+                        if(!validInput){
+                            System.out.println("Permissão inválida.");
+                        }else{
+                            int itemID = company.registerItem(itemName,clientID,itemPermissions);
+                            System.out.printf("Item registado para o client %d com o identificador %d" , clientID,itemID);
+                        }
+
+                    }else{
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
                 case "RL":
                     break;
@@ -71,7 +91,8 @@ public class Cli {
         }
         scanner.close();
     }
-    public String nameConcatenation(int nameStart, String[] commands){
+
+    String nameConcatenation(int nameStart, String[] commands){
         String fullName = "";
         for(int i = nameStart;i < commands.length; i++) {
             fullName += commands[i] + " ";
