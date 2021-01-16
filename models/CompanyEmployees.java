@@ -11,10 +11,10 @@ public class CompanyEmployees implements CompanyStorage{
 
     public CompanyEmployees() {
         //TODO Resolve the issue with the heritage!!
-        this.employees = new HashMap<String, HashMap<IdEmployee,Employee>>();
-        HashMap<ID,Employee> drivers = new HashMap<IdEmployee,Driver>();
-        HashMap<ID,Employee> deliverers = new HashMap<IdEmployee,Deliverer>();
-        HashMap<ID,Employee> managers = new HashMap<(ID)IdEmployee,(Employee)Manager>();
+        this.employees = new HashMap<String, HashMap<ID,Employee>>();
+        HashMap<ID,Employee> drivers = new HashMap<ID,Employee>();
+        HashMap<ID,Employee> deliverers = new HashMap<ID,Employee>();
+        HashMap<ID,Employee> managers = new HashMap<ID,Employee>();
     }
 
     @Override

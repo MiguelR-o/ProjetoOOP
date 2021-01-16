@@ -2,6 +2,7 @@ package models;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CompanyPlaces implements CompanyStorage{
     private HashMap<IdPlace , Place> places;
@@ -10,10 +11,10 @@ public class CompanyPlaces implements CompanyStorage{
         this.places = new HashMap<IdPlace,Place>();
     }
 
-    @Override //verifcar se é de facto necessario
-    //TODO fazer o hasName
-    public boolean hasName(String name) {
 
-        return false;
+    @Override
+    //TODO
+    public List getKeys() {
+        return null;
     }
 }

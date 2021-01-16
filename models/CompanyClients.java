@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CompanyClients implements CompanyStorage<T> {
@@ -11,10 +12,7 @@ public class CompanyClients implements CompanyStorage<T> {
         this.clients = new HashMap<IdClient,Client>();
     }
 
-    @Override
-    public boolean hasName(String name) {
-        return false;
-    }
+
 
     public void addClient(Client client){
         this.clients.put(client.getID(), client);
@@ -28,5 +26,10 @@ public class CompanyClients implements CompanyStorage<T> {
                 return entry.getValue();
             }
         }
+    }
+
+    @Override
+    public List<T> getKeys() {
+        return null;
     }
 }
