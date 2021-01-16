@@ -37,4 +37,22 @@ public interface Company {
     Employee getProfessional(String name, String category);
     // Searches in companny's Employees Dic for the Professional inside the given Category Dic with the
     // key name and returns the object as an Employee
+
+    int registerItem(String itemName, String clientID, String[] itemPermissions);
+    //register the given item and adds it to the Item DIC in company witht the itemID as a key and the obj Item as value
+    //if permissions is empty register with normal permission
+    //returns item.getID();
+
+    boolean hasPlaceName(String placeName);
+    //Searches inside Places Dic in company for get.placeName == placeName
+
+    int registerPlace(String placeName);
+    //Creates place object and adds it to the company Places dic with placeID as the key and the obj as value
+    //returns place.getID();
+
+    boolean hasPermission(String itemPermission);
+    //Receives a permission and checks if its on of the values inside the permissions Enum;
+
+
+
 }

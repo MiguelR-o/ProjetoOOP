@@ -45,32 +45,48 @@ public class Cli {
                     }
                     break;
                 case "RI":
-                    //Receives a first input and needs to store up to 3 permissions, else takes a default value of Normal
                     String clientID = command[1];
                     String itemName = command[2];
                     Boolean validInput = true;
                     if(company.hasClient(clientID)){
-                        String[] itemPermissions = new String[3];
-                        //need to find a way to make it read up to 3 lines and store its values ,
-                        //and go back to the Commands loop
-                        String permissionValue = command[0];
-                        //Checks for validity if it fails changes validInput to false
-                        //and proceeds:w
-
-                        if(!validInput){
-                            System.out.println("Permissão inválida.");
-                        }else{
+                        String[] itemPermissions = line.split(",");
+                        if (itemPermissions.length == 0){
                             int itemID = company.registerItem(itemName,clientID,itemPermissions);
                             System.out.printf("Item registado para o client %d com o identificador %d" , clientID,itemID);
+                        }else{
+                            for (String itemPermission : itemPermissions){
+                                if (!company.hasPermission(itemPermission)){
+                                    validInput = false;
+                                }
+                            }
+                            if(!validInput) {
+                                System.out.println("Permissão inválida.");
+                            }else{
+                                    int itemID = company.registerItem(itemName,clientID,itemPermissions);
+                                    System.out.printf("Item registado para o client %d com o identificador %d" , clientID,itemID);
+                                }
                         }
-
                     }else{
                         System.out.println("Cliente inexistente.");
                     }
                     break;
                 case "RL":
+                    String placeName = command[1];
+                    if(company.hasPlaceName(placeName)){
+                        System.out.println("Local existente.");
+                    }else{
+                       int placeID =  company.registerPlace(placeName);
+                        System.out.printf("Local registado com o identificador %d",placeID);
+                    }
                     break;
                 case "RD":
+                    //Register a new item deposit for a client
+                    //Takes in a list of items and quantities
+                    //RD_IDClient_IDPlace_|
+                    //IDEmployee_ID_Funcionario_...|
+                    //IDItem_Amoutn_|
+                    //IDItem_Amount_|
+                    //Fails if
                     break;
                 case "RE":
                     break;
