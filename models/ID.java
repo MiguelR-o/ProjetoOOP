@@ -1,9 +1,17 @@
 package models;
 
-public interface ID {
-    public int getID();
-    // return the value of ID
+public class ID{
+    private int value;
+    private String type;
+    public ID(int value) {
+        this.value = value;
+    }
 
-    public String getType();
-    // returns the Type for the given IDClass
+    public void addOne(){
+        this.value +=1;
+    }
+
+    public int getID(){
+        return this.value;
+    }
 }

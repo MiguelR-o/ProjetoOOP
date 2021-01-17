@@ -1,14 +1,17 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Employee{
     private String name;
     private ID ID;
     private String type;
+    private String permission;
 
-    public Employee(String name , ID ID , String type){
+    public Employee(String name , ID ID , String permission){
         this.name = name;
         this.ID = ID;
-        this.type = type;
+        this.permission = permission;
 
     }
 
