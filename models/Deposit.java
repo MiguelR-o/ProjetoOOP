@@ -1,5 +1,12 @@
 package models;
 
+<<<<<<< HEAD
+import java.io.Serializable;
+import java.util.HashMap;
+
+public class Deposit implements Serializable{
+    private static final long serialVersionUID = 1L;
+
 import java.util.HashMap;
 
 public class Deposit {

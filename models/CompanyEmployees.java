@@ -1,18 +1,25 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
-public class CompanyEmployees {
+public class CompanyEmployees implements Serializable{
+    private static final long serialVersionUID = 1L;
     private HashMap<ID, Driver> drivers;
     private HashMap<ID, Deliverer> deliverers;
     private HashMap<ID, Manager> managers;
+    private HashSet<Permission> SetTest;
+    private Permission permission;
     // TODO tudo com os 3 mapas !!
     public CompanyEmployees() {
         // TODO Resolve the issue with the heritage!!
+        Permission permission = new Permission();
         HashMap<ID, Driver> drivers = new HashMap<ID, Driver>();
         HashMap<ID, Deliverer> deliverers = new HashMap<ID, Deliverer>();
         HashMap<ID, Manager> managers = new HashMap<ID, Manager>();
+        HashSet<Permission> SetTest = new HashSet<Permission>();
     }
 
 

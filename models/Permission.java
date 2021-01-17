@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Permission{
+public class Permission implements Serializable{
+    private static final long serialVersionUID = 1L;
     private HashMap<String, ArrayList<String>> permissions;
     private ArrayList<String> itemPermissions;
 

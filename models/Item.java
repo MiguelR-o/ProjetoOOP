@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class Item {
+public class Item implements Serializable{
     //TODO classe incompleta
+    private static final long serialVersionUID = 1L;
     private ID ID;
     private String name;
     private ArrayList<String> permissions;

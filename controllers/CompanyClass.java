@@ -92,7 +92,7 @@ public class CompanyClass implements Company {
         ID placID = convertToID((Integer.parseInt(placeID)));
         Place place = companyPlaces.get(placID);
         Client client = companyClients.get(clienID);
-        Deposit deposit = new Deposit(clienID,place,client,)
+        Deposit deposit = new Deposit(clienID,place,client,);
         client.addDeposit(deposit);
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
