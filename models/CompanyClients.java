@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CompanyClients implements CompanyStorage<T> {
-    private HashMap<IdClient,Client> clients;
+    private HashMap<ID,Client> clients;
 
     public CompanyClients(){
 
-        this.clients = new HashMap<IdClient,Client>();
+        this.clients = new HashMap<ID,Client>();
     }
 
 

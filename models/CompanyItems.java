@@ -1,12 +1,15 @@
 package models;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CompanyItems implements CompanyStorage {
+public class CompanyItems{
     private HashMap<ID,Item> items = new HashMap<ID, Item>();
-    @Override
-    public List getKeys() {
-        return null;
+
+    public Collection<String> getKeys() {
+        Collection keys =items.keySet();
+        return keys;
     }
 }

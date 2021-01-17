@@ -1,12 +1,13 @@
 package views;
 
 import controllers.Company;
+import controllers.CompanyClass;
 
 import java.util.Scanner;
 
 public class Cli {
     public void start() {
-        Company company = null;
+        Company companyClass = new CompanyClass();
         Scanner scanner = new Scanner(System.in);
         String line;
         boolean endLoop = false;
@@ -18,15 +19,15 @@ public class Cli {
                     String category = command[1];
                     String permission = command[2];
                     String name = nameConcatenation(3,command);
-                    if(!company.hasCategory(category)){
+                    if(!companyClass.hasCategory(category)){
                         System.out.println("Categoria inexistente.");
-                    }else if(company.validPermission(permission,category)){
+                    }else if(companyClass.validPermission(permission,category)){
                         System.out.println("Permissão inexistente.");
-                    }else if(company.hasProfessional(name,category)){
+                    }else if(companyClass.hasProfessional(name,category)){
                     System.out.println("Funcionário existente.");
                 }else{
-                        company.registerEmployee(category,permission,name);
-                        System.out.println("Funcionário registado com o identificador " + company.getEmployeeID(company.getProfessional(name,category)));
+                        companyClass.registerEmployee(category,permission,name);
+                        System.out.println("Funcionário registado com o identificador " + companyClass.getEmployeeID(companyClass.getProfessional(name,category)));
                 }
                     break;
                 case "RC":
@@ -37,32 +38,32 @@ public class Cli {
                     for(int i=2 ; i<line.length();i++){
                        nameClient += command[i];
                     }
-                    if(company.hasClientName(nameClient)){
+                    if(companyClass.hasClientName(nameClient)){
                         System.out.println("Cliente existente.");
                     }else{
-                        company.registerClient(nameClient);
-                        System.out.println("Cliente registado com o identificador " + company.getClientID(nameClient));
+                        companyClass.registerClient(nameClient);
+                        System.out.println("Cliente registado com o identificador " + companyClass.getClientID(nameClient));
                     }
                     break;
                 case "RI":
                     String clientID = command[1];
                     String itemName = command[2];
                     Boolean validInput = true;
-                    if(company.hasClient(clientID)){
+                    if(companyClass.hasClient(clientID)){
                         String[] itemPermissions = line.split(",");
                         if (itemPermissions.length == 0){
-                            int itemID = company.registerItem(itemName,clientID,itemPermissions);
+                            int itemID = companyClass.registerItem(itemName,clientID,itemPermissions);
                             System.out.printf("Item registado para o client %d com o identificador %d" , clientID,itemID);
                         }else{
                             for (String itemPermission : itemPermissions){
-                                if (!company.hasPermission(itemPermission)){
+                                if (!companyClass.hasPermission(itemPermission)){
                                     validInput = false;
                                 }
                             }
                             if(!validInput) {
                                 System.out.println("Permissão inválida.");
                             }else{
-                                    int itemID = company.registerItem(itemName,clientID,itemPermissions);
+                                    int itemID = companyClass.registerItem(itemName,clientID,itemPermissions);
                                     System.out.printf("Item registado para o client %d com o identificador %d" , clientID,itemID);
                                 }
                         }
@@ -72,10 +73,10 @@ public class Cli {
                     break;
                 case "RL":
                     String placeName = command[1];
-                    if(company.hasPlaceName(placeName)){
+                    if(companyClass.hasPlaceName(placeName)){
                         System.out.println("Local existente.");
                     }else{
-                       int placeID =  company.registerPlace(placeName);
+                       int placeID =  companyClass.registerPlace(placeName);
                         System.out.printf("Local registado com o identificador %d",placeID);
                     }
                     break;

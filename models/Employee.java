@@ -1,12 +1,30 @@
 package models;
 
-public interface Employee {
-    String getName();
-    //returns Employee Name
+public class Employee{
+    private String name;
+    private ID ID;
+    private String type;
 
-    ID getID();
-    //returns Employee ID
+    public Employee(String name , ID ID , String type){
+        this.name = name;
+        this.ID = ID;
+        this.type = type;
 
-    String getEmployeeType();
-    //returns Employee's class name as a String
+    }
+
+
+
+    public String getEmployeeType(){
+        return this.type;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public ID getID(){
+        return this.ID;
+    }
+
+
 }
