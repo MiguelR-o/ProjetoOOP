@@ -95,6 +95,9 @@ public class Cli {
                     HashMap<ID, String> itemsDeposited = new HashMap<ID, String>();
                     while (true) {
                         if (command[0].equals("")) {
+                    HashMap<ID,String> itemsDeposited = new HashMap<ID,String>();
+                    while(true){
+                        if(command[0].equals("")){
                             break;
                         } else {
                             String stringItemID = command[0];
@@ -103,6 +106,7 @@ public class Cli {
                             itemsDeposited.put(itemID, quantity);
                         }
                     }
+
                     if (companyClass.hasClient(stringClientID)) {
                         if (companyClass.hasPlaceWithID(placeID)) {
                             if (companyClass.validItems(itemsDeposited)) {
@@ -110,6 +114,14 @@ public class Cli {
                                     HashMap<ID, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
                                     if (companyClass.validDriverPermissions(permissionMap)) {
                                         if (companyClass.validDelivererPermissions(permissionMap)) {
+                    if (companyClass.hasClient(stringClientID)){
+                        if(companyClass.hasPlaceWithID(placeID)){
+                            if (companyClass.validItems(itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)))){
+                                if(companyClass.validEmployeesID(employeeIDs)){
+                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                    Set<String> summedPermissions =  companyClass.storeItemsDepositedPermissions(itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)));
+                                    if(companyClass.validDriverPermissions(permissionMap,summedPermissions)){
+                                        if(companyClass.validDelivererPermissions(permissionMap,summedPermissions)){
                                             int depositID = companyClass.registerDeposit();
                                             System.out.println("Depósito registado com o identificador %d" + depositID);
                                         } else {

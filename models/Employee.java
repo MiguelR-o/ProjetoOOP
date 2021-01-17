@@ -17,7 +17,9 @@ public class Employee implements Serializable{
 
     }
 
-
+    public String getPermission() {
+        return this.permission;
+    }
 
     public String getEmployeeType(){
         return this.type;

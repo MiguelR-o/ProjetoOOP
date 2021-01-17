@@ -21,6 +21,10 @@ public class Item implements Serializable{
         return this.ID;
     }
 
+    public ArrayList<String> getPermissions(){
+        return this.permissions;
+    }
+
     private ArrayList<String> permissionsToArrayList(String[] permissions){
         ArrayList<String> list2 = new ArrayList<String>();
         for(String string:permissions){

@@ -70,5 +70,33 @@ public class CompanyEmployees implements Serializable{
             return false;
         }
     }
+
+    public boolean hasDriver(ID driverID){
+        return drivers.containsKey(driverID);
+    }
+
+    public Driver getDriver(ID driverID){
+        return drivers.get(driverID);
+    }
+
+    public boolean hasEmployeeByID(ID employeeID) {
+        if(drivers.containsKey(employeeID)){
+            return true;
+        }else if(deliverers.containsKey(employeeID)){
+            return true;
+        }else if(managers.containsKey((employeeID))){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean hasDeliverer(ID employeeID) {
+        return deliverers.containsKey(employeeID);
+    }
+
+    public Deliverer getDeliverer(ID employeeID) {
+        return deliverers.get(employeeID);
+    }
 }
 

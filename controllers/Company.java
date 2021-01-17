@@ -69,11 +69,11 @@ public interface Company {
     boolean validEmployeesID(String[] employeeIDs);
     //Checks for each ID inside employeeIDs array if its registered in Company
 
-    boolean validDriverPermissions(HashMap<ID, Set> permissionMap);
+    boolean validDriverPermissions(HashMap<String, Set> permissionMap, Set<String> summedPerm);
     //Checks the value for the Driver key inside the permissionMap to see if it contais the
     //item permissions
 
-    boolean validDelivererPermissions(HashMap<ID, Set> permissionMap);
+    boolean validDelivererPermissions(HashMap<String, Set> permissionMap, Set<String> summedPerm);
     //Checks the value for the Driver key inside the permissionMap to see if it contais the
     //item permissions
 
@@ -81,7 +81,10 @@ public interface Company {
     //Creates a Deposit object and stores it inside the each item Deposit map , client deposit map
     //aswell as each employee deposit map
 
-    HashMap<ID, Set> createPermissionMap(String[] employeeIDs);
-    //receives Employee IDs and creates a map with the key being the Class name and the valeu a
+    HashMap<String, Set> createPermissionMap(String[] employeeIDs);
+    //receives Employee IDs and creates a map with the key being the Class name and the value a
     //Set with the given employee permissions
+
+    Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited, ID clientID);
+    //Sums up the items requierments for the whole deposit
 }

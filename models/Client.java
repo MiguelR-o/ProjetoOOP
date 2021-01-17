@@ -24,6 +24,9 @@ public class Client implements Serializable {
         return this.ID;
     }
 
+    public HashMap<ID,Item> getItemMap(){
+        return this.items;
+    }
     public Collection<Item> getItems(){
        return items.values();
     }
@@ -34,5 +37,9 @@ public class Client implements Serializable {
 
     public String  getName() {
         return this.name;
+    }
+
+    public void addDeposit(Deposit deposit) {
+        deposits.put(deposit.getDepositID(),deposit);
     }
 }
