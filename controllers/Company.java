@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Employee;
+import models.ID;
 
 public interface Company {
     boolean hasCategory(String category);
@@ -52,7 +53,8 @@ public interface Company {
 
     boolean hasPermission(String itemPermission);
     //Receives a permission and checks if its on of the values inside the permissions Enum;
-
+    ID convertToID(int parseInt);
+    //Receives an integer and turns into an ID object
 
 
 }

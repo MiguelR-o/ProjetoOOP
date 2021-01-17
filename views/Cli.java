@@ -2,8 +2,11 @@ package views;
 
 import controllers.Company;
 import controllers.CompanyClass;
+import models.ID;
 
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Cli {
     public void start() {
@@ -81,18 +84,58 @@ public class Cli {
                     }
                     break;
                 case "RD":
-                    String clientID = command[1];
+                    String stringClientID = command[1];
                     String placeID = command[2];
                     String[] employeeIDs = line.split(" ");
-                    boolean minimumRequierments = false; //needs atleast one Driver and Deliverer with the adequate permissions
                     // Employees IDs are stored , so i can check what permissions they have
                     //So I can make a method that creates a map with the keys being driver/deliverer
                     //and the value being the set with the permissions already satisfied
+                    HashMap<ID,String> itemsDeposited = new HashMap<ID,String>();
+                    while(true){
+                        if(command[0].equals("")){
+                            break;
+                        }else{
+                            String stringItemID = command[0];
+                            String quantity = command[1];
+                            ID itemID = companyClass.convertToID(Integer.parseInt(stringItemID));
+                            itemsDeposited.put(itemID,quantity);
+                        }
+                    }
+                    if (companyClass.hasClient(stringClientID)){
+                        if(companyClass.hasPlaceWithID(placeID)){
+                            if (companyClass.validItems(itemsDeposited)){
+                                if(companyClass.validEmployeesID(employeeIDs)){
+                                    HashMap<ID, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                    if(companyClass.validDriverPermissions(permissionMap)){
+                                        if(companyClass.validDelivererPermissions(permissionMap)){
+                                            int depositID = companyClass.registerDeposit();
+                                            System.out.println("Depósito registado com o identificador %d" , depositID);
+                                        }else{
+                                            System.out.println("Carregador sem permissões.");
+                                        }
+
+                                    }else{
+                                        System.out.println("Condutor sem permissões");
+                                    }
+
+                                }else{
+                                    System.out.println("Funcionário inexistente.");
+                                }
+
+                            }else{
+                                System.out.println("Item inexistente.");
+                            }
+                        }else{
+                            System.out.println("Local inexistente.");
+                        }
+                    }else{
+                        System.out.println("Cliente inexistente.");
+                    }
 
 
                     //Register a new item deposit for a client
                     //Takes in a list of items and quantities
-                    //RD_IDClient_IDPlace_|
+
                     //IDEmployee_ID_Funcionario_...|
                     //IDItem_Amoutn_|
                     //IDItem_Amount_|
