@@ -3,6 +3,7 @@ package controllers;
 import models.*;
 import views.Cli;
 
+import java.lang.ref.Cleaner;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -86,13 +87,29 @@ public class CompanyClass implements Company {
         return true;
     }
 
+    public HashMap<ID,Employee> createEmployeeMap(String[] employeeIDs){
+        HashMap<ID,Employee> employeeMap = new HashMap<>();
+        for (String key : employeeIDs){
+            Employee employee = companyEmployees.getEmployee(convertToID(Integer.parseInt(key)));
+            employeeMap.put(convertToID(Integer.parseInt(key)), employee);
+        }
+
+        return  employeeMap;
+    }
+
+    public HashMap<ID,Item> createItemMap(Set<ID> itemID, Client client){
+        client.getItemMap().values();
+    }
+
     @Override
     public int registerDeposit(String clientID, String placeID,String[] employeeIDs,HashMap<ID,String> items) {
         ID clienID = convertToID(Integer.parseInt(clientID));
         ID placID = convertToID((Integer.parseInt(placeID)));
         Place place = companyPlaces.get(placID);
         Client client = companyClients.get(clienID);
-        Deposit deposit = new Deposit(clienID,place,client,)
+        HashMap<ID,Employee> employeeMap = createEmployeeMap(employeeIDs);
+        HashMap<ID,Item> itemMap = createItemMap(items.keySet(),client);
+        Deposit deposit = new Deposit(clienID,place,client, employeeMap,itemMap)
         client.addDeposit(deposit);
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client

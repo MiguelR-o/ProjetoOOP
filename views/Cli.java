@@ -51,8 +51,10 @@ public class Cli {
                 case "RI":
                     String clientID = command[1];
                     String itemName = command[2];
+                    line = Scanner.nextline();
                     Boolean validInput = true;
                     if(companyClass.hasClient(clientID)){
+                        r
                         String[] itemPermissions = line.split(",");
                         if (itemPermissions.length == 0){
                             int itemID = companyClass.registerItem(itemName,clientID,itemPermissions);
@@ -86,9 +88,11 @@ public class Cli {
                 case "RD":
                     String stringClientID = command[1];
                     String placeID = command[2];
+                    line = scanner.nextLine();
                     String[] employeeIDs = line.split(" ");
                     HashMap<ID,String> itemsDeposited = new HashMap<ID,String>();
                     while(true){
+                        line = scanner.nextLine();
                         if(command[0].equals("")){
                             break;
                         }else{
@@ -96,6 +100,7 @@ public class Cli {
                             String quantity = command[1];
                             ID itemID = companyClass.convertToID(Integer.parseInt(stringItemID));
                             itemsDeposited.put(itemID,quantity);
+
                         }
                     }
                     if (companyClass.hasClient(stringClientID)){
