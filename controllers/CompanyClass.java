@@ -37,37 +37,116 @@ public class CompanyClass implements Company {
 
     @Override
     public boolean hasPlaceWithID(String placeID) {
-        return false;
+        return companyPlaces.containsKey(convertToID(Integer.parseInt(placeID)));
     }
 
     @Override
-    public boolean validItems(HashMap<ID, String> itemsDeposited) {
-        return false;
+    public boolean validItems(HashMap<ID, String> itemsDeposited, ID clientID) {
+       //go to the given client and getItems , check for each key of the given map if exists in getItems Map
+       Client client= companyClients.get(clientID);
+       HashMap<ID,Item> items = client.getItemMap();
+       Set<ID> depositedIDs =  itemsDeposited.keySet();
+       for (ID depositID : depositedIDs){
+           if(!items.containsKey(depositID)){
+               return false;
+           }
+       }
+        return true;
     }
 
     @Override
     public boolean validEmployeesID(String[] employeeIDs) {
-        return false;
+        for(String id : employeeIDs){
+           if(!companyEmployees.hasEmployeeByID(convertToID(Integer.parseInt(id)))){
+               return false;
+           }
+        }
+        return true;
     }
 
     @Override
-    public boolean validDriverPermissions(HashMap<ID, Set> permissionMap) {
-        return false;
+    public boolean validDriverPermissions(HashMap<String, Set> permissionMap, Set<String> summedPermissions) {
+        for (String permission : summedPermissions){
+            if(!permission.equals("S")){
+                if(!permissionMap.get("Driver").contains(permission)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean validDelivererPermissions(HashMap<ID, Set> permissionMap) {
-        return false;
+    public boolean validDelivererPermissions(HashMap<String, Set> permissionMap, Set<String> summedPermissions) {
+        for (String permission : summedPermissions){
+            if(!permissionMap.get("Deliverer").contains(permission)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public int registerDeposit() {
+    public int registerDeposit(String clientID, String placeID,String[] employeeIDs,HashMap<ID,String> items) {
+        ID clienID = convertToID(Integer.parseInt(clientID));
+        ID placID = convertToID((Integer.parseInt(placeID)));
+        Place place = companyPlaces.get(placID);
+        Client client = companyClients.get(clienID);
+        Deposit deposit = new Deposit(clienID,place,client,)
+        client.addDeposit(deposit);
+        //add it to client , all employees that participate , to all items
+        //increase the amount of items in client
         return 0;
     }
 
     @Override
-    public HashMap<ID, Set> createPermissionMap(String[] employeeIDs) {
-        return null;
+    public HashMap<String, Set> createPermissionMap(String[] employeeIDs) {
+        //convert array to arrayList
+        ArrayList<String> arraylist = new ArrayList<String>();
+        for (String string : employeeIDs){
+            arraylist.add(string);
+        }
+        //create the map
+        HashMap<String,Set> permissionMap = new HashMap<String,Set>();
+        //Create the Driver set
+        Set<String> driverSet = Collections.emptySet();
+        //Create the Deliverer set
+        Set<String> delivererSet = Collections.emptySet();
+        //Search for Drivers and Deliverer until both sets size is = 2
+        for (String element : arraylist){
+            ID elementID = convertToID(Integer.parseInt(element));
+            if (driverSet.size()<2){
+                if(companyEmployees.hasDriver(elementID)){
+                    driverSet.add(companyEmployees.getDriver(elementID).getPermission());
+                }
+            }else if (delivererSet.size() <2 ){
+                if(companyEmployees.hasDeliverer(elementID)){
+                    delivererSet.add(companyEmployees.getDeliverer(elementID).getPermission());
+                }
+            }
+
+        }
+        //add the items to the map
+        permissionMap.put("Driver",driverSet);
+        permissionMap.put("Deliverer",delivererSet);
+        //return the map
+        return permissionMap;
+    }
+
+    @Override
+    public Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited,ID clientID) {
+        Set<String> summedPermission = Collections.emptySet();
+        Set<ID> keys = itemsDeposited.keySet();
+        HashMap<ID,Item> clientItemMap = companyClients.get(clientID).getItemMap();
+        for (ID key : keys){
+            if (summedPermission.size()<3){
+               ArrayList<String> itemPermissions = clientItemMap.get(key).getPermissions();
+               for(String permission : itemPermissions){
+                   summedPermission.add(permission);
+               }
+            }
+        }
+        return summedPermission;
     }
 
     @Override

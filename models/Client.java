@@ -36,4 +36,8 @@ public class Client {
     public String  getName() {
         return this.name;
     }
+
+    public void addDeposit(Deposit deposit) {
+        deposits.put(deposit.getDepositID(),deposit);
+    }
 }

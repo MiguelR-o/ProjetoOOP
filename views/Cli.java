@@ -87,9 +87,6 @@ public class Cli {
                     String stringClientID = command[1];
                     String placeID = command[2];
                     String[] employeeIDs = line.split(" ");
-                    // Employees IDs are stored , so i can check what permissions they have
-                    //So I can make a method that creates a map with the keys being driver/deliverer
-                    //and the value being the set with the permissions already satisfied
                     HashMap<ID,String> itemsDeposited = new HashMap<ID,String>();
                     while(true){
                         if(command[0].equals("")){
@@ -103,11 +100,12 @@ public class Cli {
                     }
                     if (companyClass.hasClient(stringClientID)){
                         if(companyClass.hasPlaceWithID(placeID)){
-                            if (companyClass.validItems(itemsDeposited)){
+                            if (companyClass.validItems(itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)))){
                                 if(companyClass.validEmployeesID(employeeIDs)){
-                                    HashMap<ID, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
-                                    if(companyClass.validDriverPermissions(permissionMap)){
-                                        if(companyClass.validDelivererPermissions(permissionMap)){
+                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                    Set<String> summedPermissions =  companyClass.storeItemsDepositedPermissions(itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)));
+                                    if(companyClass.validDriverPermissions(permissionMap,summedPermissions)){
+                                        if(companyClass.validDelivererPermissions(permissionMap,summedPermissions)){
                                             int depositID = companyClass.registerDeposit();
                                             System.out.println("Depósito registado com o identificador %d" , depositID);
                                         }else{
