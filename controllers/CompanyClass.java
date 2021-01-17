@@ -4,10 +4,7 @@ import models.*;
 import views.Cli;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CompanyClass implements Company {
     private CompanyEmployees companyEmployees;
@@ -36,6 +33,41 @@ public class CompanyClass implements Company {
     public ID convertToID(int input ) {
         ID newInput = new ID(input);
         return newInput;
+    }
+
+    @Override
+    public boolean hasPlaceWithID(String placeID) {
+        return false;
+    }
+
+    @Override
+    public boolean validItems(HashMap<ID, String> itemsDeposited) {
+        return false;
+    }
+
+    @Override
+    public boolean validEmployeesID(String[] employeeIDs) {
+        return false;
+    }
+
+    @Override
+    public boolean validDriverPermissions(HashMap<ID, Set> permissionMap) {
+        return false;
+    }
+
+    @Override
+    public boolean validDelivererPermissions(HashMap<ID, Set> permissionMap) {
+        return false;
+    }
+
+    @Override
+    public int registerDeposit() {
+        return 0;
+    }
+
+    @Override
+    public HashMap<ID, Set> createPermissionMap(String[] employeeIDs) {
+        return null;
     }
 
     @Override

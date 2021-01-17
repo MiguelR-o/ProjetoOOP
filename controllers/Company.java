@@ -3,6 +3,9 @@ package controllers;
 import models.Employee;
 import models.ID;
 
+import java.util.HashMap;
+import java.util.Set;
+
 public interface Company {
     boolean hasCategory(String category);
     //searches if there is a key equal to Category inside Professionals Dic
@@ -53,8 +56,32 @@ public interface Company {
 
     boolean hasPermission(String itemPermission);
     //Receives a permission and checks if its on of the values inside the permissions Enum;
+
     ID convertToID(int parseInt);
     //Receives an integer and turns into an ID object
 
+    boolean hasPlaceWithID(String placeID);
+    //Checks in companyPlaces for the key placeID
 
+    boolean validItems(HashMap<ID, String> itemsDeposited, ID clientID);
+    //Checks if for each key of itemsDeposited if its in the client Item list
+
+    boolean validEmployeesID(String[] employeeIDs);
+    //Checks for each ID inside employeeIDs array if its registered in Company
+
+    boolean validDriverPermissions(HashMap<ID, Set> permissionMap);
+    //Checks the value for the Driver key inside the permissionMap to see if it contais the
+    //item permissions
+
+    boolean validDelivererPermissions(HashMap<ID, Set> permissionMap);
+    //Checks the value for the Driver key inside the permissionMap to see if it contais the
+    //item permissions
+
+    int registerDeposit(String clientID, String placeID, String[] employeeIDs ,HashMap<ID,String> items);
+    //Creates a Deposit object and stores it inside the each item Deposit map , client deposit map
+    //aswell as each employee deposit map
+
+    HashMap<ID, Set> createPermissionMap(String[] employeeIDs);
+    //receives Employee IDs and creates a map with the key being the Class name and the valeu a
+    //Set with the given employee permissions
 }

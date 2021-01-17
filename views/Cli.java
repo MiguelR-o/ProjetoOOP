@@ -132,14 +132,6 @@ public class Cli {
                         System.out.println("Cliente inexistente.");
                     }
 
-
-                    //Register a new item deposit for a client
-                    //Takes in a list of items and quantities
-
-                    //IDEmployee_ID_Funcionario_...|
-                    //IDItem_Amoutn_|
-                    //IDItem_Amount_|
-
                     break;
                 case "RE":
                     break;
