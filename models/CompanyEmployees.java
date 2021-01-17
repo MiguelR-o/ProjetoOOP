@@ -1,7 +1,9 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class CompanyEmployees {
     private HashMap<ID, Driver> drivers;
@@ -90,6 +92,21 @@ public class CompanyEmployees {
 
     public Deliverer getDeliverer(ID employeeID) {
         return deliverers.get(employeeID);
+    }
+
+    public Employee getEmployee(ID employeeID) {
+        if(drivers.containsKey(employeeID)){
+            return drivers.get(employeeID);
+        }else if (deliverers.containsKey(employeeID)){
+            return deliverers.get(employeeID);
+        }else{
+            return managers.get(employeeID);
+        }
+    }
+
+    public ArrayList<String> getKeys() {
+        ArrayList<String> keys = new ArrayList<>(List.of("Condutor","Gestor","Carregador"));
+        return keys;
     }
 }
 
