@@ -41,7 +41,7 @@ public class Cli {
                     if(companyClass.hasClientName(nameClient)){
                         System.out.println("Cliente existente.");
                     }else{
-                        companyClass.registerClient(nameClient);
+                        companyClass.registerClient(nameClient,employeeID);
                         System.out.println("Cliente registado com o identificador " + companyClass.getClientID(nameClient));
                     }
                     break;
@@ -81,13 +81,22 @@ public class Cli {
                     }
                     break;
                 case "RD":
+                    String clientID = command[1];
+                    String placeID = command[2];
+                    String[] employeeIDs = line.split(" ");
+                    boolean minimumRequierments = false; //needs atleast one Driver and Deliverer with the adequate permissions
+                    // Employees IDs are stored , so i can check what permissions they have
+                    //So I can make a method that creates a map with the keys being driver/deliverer
+                    //and the value being the set with the permissions already satisfied
+
+
                     //Register a new item deposit for a client
                     //Takes in a list of items and quantities
                     //RD_IDClient_IDPlace_|
                     //IDEmployee_ID_Funcionario_...|
                     //IDItem_Amoutn_|
                     //IDItem_Amount_|
-                    //Fails if
+
                     break;
                 case "RE":
                     break;

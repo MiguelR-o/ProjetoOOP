@@ -25,7 +25,7 @@ public interface Company {
     //Checks in companny's clients Dic for each key clientID which contains the client obj and
     //compares Client.getName() with clientName
 
-    void registerClient(String nameClient);
+    void registerClient(String nameClient,String employID);
     //Creates an object client with the given values and adds it to the Clients Dic in company
 
     int getClientID(String nameClient);
