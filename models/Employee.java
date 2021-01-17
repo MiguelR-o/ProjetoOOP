@@ -15,7 +15,9 @@ public class Employee{
 
     }
 
-
+    public String getPermission() {
+        return this.permission;
+    }
 
     public String getEmployeeType(){
         return this.type;

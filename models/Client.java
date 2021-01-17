@@ -22,6 +22,9 @@ public class Client {
         return this.ID;
     }
 
+    public HashMap<ID,Item> getItemMap(){
+        return this.items;
+    }
     public Collection<Item> getItems(){
        return items.values();
     }
