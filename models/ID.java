@@ -1,6 +1,9 @@
 package models;
 
-public class ID{
+import java.io.Serializable;
+
+public class ID implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int value;
     private String type;
     public ID(int value) {

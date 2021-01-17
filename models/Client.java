@@ -2,9 +2,11 @@ package models;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.io.Serializable;
 import java.util.Set;
 
-public class Client {
+public class Client implements Serializable {
+    private static final long serialVersionUID = 1L;
     private ID ID;
     private String name;
     private ID clientManagerID;
