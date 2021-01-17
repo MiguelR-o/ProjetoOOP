@@ -184,6 +184,7 @@ public class Cli {
                     }
                     catch (Exception e){
                         e.printStackTrace();
+                        System.out.printf("Ficheiro inexistente");
                         return;
                     }
 
