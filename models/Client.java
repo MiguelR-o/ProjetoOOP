@@ -9,7 +9,7 @@ public class Client {
     private String name;
     private ID clientManagerID;
     private HashMap<ID,Item> items;
-    //private HashMap<ID,Delivery> Deliverys;
+    private HashMap<ID,Deposit> deposits;
 
     public Client(String name , ID ID,ID managerID){
         this.name = name;
