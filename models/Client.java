@@ -7,9 +7,15 @@ import java.util.Set;
 public class Client {
     private ID ID;
     private String name;
+    private ID clientManagerID;
     private HashMap<ID,Item> items;
-    private HashMap<ID,Delivery> Deliverys;
+    //private HashMap<ID,Delivery> Deliverys;
 
+    public Client(String name , ID ID,ID managerID){
+        this.name = name;
+        this.ID = ID;
+        this.clientManagerID = managerID;
+    }
     //TODO getID code !!
     public ID getID() {
         //returns this.ID
@@ -21,6 +27,10 @@ public class Client {
     }
 
     public void addItem(Item item){
-        items.put(item.getID(), item);
+        items.put(item.getItemID(), item);
+    }
+
+    public String  getName() {
+        return this.name;
     }
 }

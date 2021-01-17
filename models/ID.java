@@ -14,4 +14,8 @@ public class ID{
     public int getID(){
         return this.value;
     }
+
+    public void subtractOne() {
+        this.ID -=1;
+    }
 }

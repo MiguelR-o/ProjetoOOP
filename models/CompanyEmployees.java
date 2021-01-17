@@ -55,5 +55,13 @@ public class CompanyEmployees {
         }
         return false;
     }
+
+    public boolean isEmpty() {
+        if (drivers.isEmpty() && deliverers.isEmpty() && managers.isEmpty()){
+            return true;
+        }else{
+            return false;
         }
+    }
+}
 
