@@ -16,6 +16,6 @@ public class ID{
     }
 
     public void subtractOne() {
-        this.ID -=1;
+        this.value -=1;
     }
 }
