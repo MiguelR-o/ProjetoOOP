@@ -54,7 +54,7 @@ public class Cli {
 
                 case "RI":
                     String clientID = command[1];
-                    String itemName = command[2];
+                    String itemName = nameConcatenation(2, command);
                     line = scanner.nextLine();
                     Boolean validInput = true;
                     if (companyClass.hasClient(clientID)) {
@@ -206,7 +206,7 @@ public class Cli {
                         for (int key : client.getItemMap().keySet()){
                            ArrayList<String> output = companyClass.prepareItemOutputCC(client,key);
                             ArrayList<String> permissions = companyClass.itemOutputCCPermissions(client,key);
-                            System.out.printf("  %s (%s) %s %s%n",output.get(0),output.get(1),output.get(2),permissions);
+                            System.out.printf("  %s (%s) %s %s%n",output.get(0),output.get(1),permissions,output.get(2));
                         }
                         System.out.println("Depósitos:");
                         for(int key : client.orderDepositIDs()){
