@@ -3,9 +3,11 @@ package views;
 import controllers.Company;
 import controllers.CompanyClass;
 import models.ID;
+import models.Item;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -152,7 +154,7 @@ public class Cli {
                     String stringPlaceID = command[2];
                     line = scanner.nextLine();
                     String[] employeeIDs = line.split(" ");
-                    HashMap<ID, String> itemsDeposited = new HashMap<ID, String>(); // ID , Quantity
+                    HashMap<ID, String> itemsDelivered = new HashMap<ID, String>(); // ID , Quantity
                     while (true) {
                         line = scanner.nextLine();
                         command = line.split(" ");
@@ -161,35 +163,35 @@ public class Cli {
                         } else {
                             String stringItemID = command[0];
                             String quantity = command[1];
-                            itemsDeposited.put(companyClass.convertToID(Integer.parseInt(stringItemID)), quantity);
+                            itemsDelivered.put(companyClass.convertToID(Integer.parseInt(stringItemID)), quantity);
 
                         }
                     }
                     if (companyClass.hasClient(stringClientID)) {
                         if (companyClass.hasPlaceWithID(stringPlaceID)) {
-                            if (companyClass.validItems(itemsDeposited,
-                                    companyClass.convertToID(Integer.parseInt(stringClientID)))) {
-                                if (companyClass.validEmployeesID(employeeIDs)) {
-                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
-                                    Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
-                                            itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)));
-                                    if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
-                                        if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
-                                            int deliveryID = companyClass.registerDelivery(stringClientID, stringPlaceID,
-                                                    employeeIDs, itemsDeposited);
-                                            System.out.printf("Entrega registada com o identificador%d", deliveryID);
+                            if (companyClass.validItems(itemsDelivered,companyClass.convertToID(Integer.parseInt(stringClientID)))) {
+                                if (companyClass.validItemsAmount(stringItemID, quantity)){
+                                    if (companyClass.validEmployeesID(employeeIDs)) {
+                                        HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                        Set<String> summedPermissions = companyClass.storeItemsDeliveredPermissions(itemsDelivered, companyClass.convertToID(Integer.parseInt(stringClientID)))
+                                        if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
+                                            if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
+                                                int deliveryID= companyClass.registerDelivery(stringClientID, stringPlaceID,employeeIDs, itemsDelivered);
+                                                System.out.printf("Depósito registado com o identificador %d", deliveryID);
+                                            } else {
+                                                System.out.println("Carregador sem permissões.");
+                                            }
+
                                         } else {
-                                            System.out.println("Carregador sem permissões.");
+                                            System.out.println("Condutor sem permissões");
                                         }
 
                                     } else {
-                                        System.out.println("Condutor sem permissões");
+                                        System.out.println("Funcionário inexistente.");
                                     }
-
-                                } else {
-                                    System.out.println("Funcionário inexistente.");
+                                }else{
+                                    System.out.println("quantidade insuficiente");
                                 }
-
                             } else {
                                 System.out.println("Item inexistente.");
                             }
@@ -199,6 +201,7 @@ public class Cli {
                     } else {
                         System.out.println("Cliente inexistente.");
                     }
+
                     break;
 
                 case "CC":
@@ -207,10 +210,31 @@ public class Cli {
                     if(!companyClass.hasClient(stringClientID)){
                         System.out.println("Cliente inexistente.");
                     }else{
-                        System.out.println(companyClass.;
-                    }
+                        ID clientID = companyClass.convertToID(Integer.parseInt(stringClientID));
+                        System.out.println(companyClass.getClientID(clientID).getName());
 
+                        System.out.println(companyClass.getManagerFromCLient(clientID).getName());
+
+                        System.out.println("Items:");
+                        List<Item> items = companyClass.getItemListFromClient(clientID);
+                        for (Item item : items) {
+                            System.out.println("  " + item.getItemID() + " (" + item.getAmount() + ") [" + item.getPermissions() + "] " + item.getItemName());
+                        }
+
+                        System.out.println("Depósitos:");
+                        List<Deposit> deposits = companyClass.getDepositsListFromCLient(clientID);
+                        for (Deposit deposit : deposits) {
+                            System.out.println("  " + deposit.getDepositId() + " (" + deposit.getDepositLocationName() + ") ");
+                        }
+
+                        System.out.println("Entregas:");
+                        List<Delivery> deliveries = companyClass.getDeliveryListFromCLient(clientID);
+                        for (Delivery delivery : deliveries) {
+                            System.out.println("  " + delivery.getDeliveryId() + " (" + delivery.getDeliveryLocationName() + ") ");
+                        }
+                    }
                     break;
+
                 case "CI":
                     break;
                 case "CE":

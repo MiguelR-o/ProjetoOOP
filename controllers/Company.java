@@ -3,8 +3,10 @@ package controllers;
 import models.Client;
 import models.Employee;
 import models.ID;
+import models.Manager;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public interface Company {
@@ -103,5 +105,15 @@ public interface Company {
     Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited, ID clientID);
 
     int registerDelivery(String stringClientID, String stringPlaceID, String[] employeeIDs, HashMap<ID, String> itemsDeposited);
+
+    Manager getManagerFromCLient(ID clientID);
+
+    List<Item> getItemListFromClient(ID clientID);
+
+    Set<String> storeItemsDeliveredPermissions(HashMap<ID, String> itemsDelivered, ID convertToID);
+
+    List<Deposit> getDepositsListFromCLient(ID clientID);
+
+    List<Delivery> getDeliveryListFromCLient(ID clientID);
     // Sums up the items requierments for the whole deposit
 }

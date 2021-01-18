@@ -26,4 +26,9 @@ public class Deposit implements Serializable {
     public ID getDepositID(){
         return this.ID;
     }
+
+    public ID getDepositLocationName(){
+        return this.place;
+    }
+
 }
