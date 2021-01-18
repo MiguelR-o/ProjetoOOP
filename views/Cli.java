@@ -35,6 +35,7 @@ public class Cli {
                                 + companyClass.getEmployeeID(companyClass.getProfessional(name, category)));
                     }
                     break;
+
                 case "RC":
                     // Nome contem espaços e deve ser unico no sistema
                     // IDCliente numero unico atribuido pelo sistema (starts @ 1)
@@ -51,6 +52,7 @@ public class Cli {
                                 "Cliente registado com o identificador " + clientID);
                     }
                     break;
+
                 case "RI":
                     String clientID = command[1];
                     String itemName = command[2];
@@ -80,15 +82,17 @@ public class Cli {
                         System.out.println("Cliente inexistente.");
                     }
                     break;
+
                 case "RL":
                     String placeName = command[1];
                     if (companyClass.hasPlaceName(placeName)) {
                         System.out.println("Local existente.");
                     } else {
                         int placeID = companyClass.registerPlace(placeName);
-                        System.out.printf("Local registado com o identificador %d", placeID);
+                        System.out.printf("Local registado com o identificador %d", placeID, ".");
                     }
                     break;
+
                 case "RD":
                     String stringClientID = command[1];
                     String stringPlaceID = command[2];
@@ -119,7 +123,7 @@ public class Cli {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
                                             int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,
                                                     employeeIDs, itemsDeposited);
-                                            System.out.printf("Depósito registado com o identificador %d", depositID);
+                                            System.out.printf("Depósito registado com o identificador %d", depositID, ".");
                                         } else {
                                             System.out.println("Carregador sem permissões.");
                                         }
@@ -141,11 +145,71 @@ public class Cli {
                     } else {
                         System.out.println("Cliente inexistente.");
                     }
+                    break;
 
-                    break;
                 case "RE":
+                    String stringClientID = command[1];
+                    String stringPlaceID = command[2];
+                    line = scanner.nextLine();
+                    String[] employeeIDs = line.split(" ");
+                    HashMap<ID, String> itemsDeposited = new HashMap<ID, String>(); // ID , Quantity
+                    while (true) {
+                        line = scanner.nextLine();
+                        command = line.split(" ");
+                        if (command[0].equals("")) {
+                            break;
+                        } else {
+                            String stringItemID = command[0];
+                            String quantity = command[1];
+                            itemsDeposited.put(companyClass.convertToID(Integer.parseInt(stringItemID)), quantity);
+
+                        }
+                    }
+                    if (companyClass.hasClient(stringClientID)) {
+                        if (companyClass.hasPlaceWithID(stringPlaceID)) {
+                            if (companyClass.validItems(itemsDeposited,
+                                    companyClass.convertToID(Integer.parseInt(stringClientID)))) {
+                                if (companyClass.validEmployeesID(employeeIDs)) {
+                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                    Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
+                                            itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)));
+                                    if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
+                                        if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
+                                            int deliveryID = companyClass.registerDelivery(stringClientID, stringPlaceID,
+                                                    employeeIDs, itemsDeposited);
+                                            System.out.printf("Entrega registada com o identificador%d", deliveryID);
+                                        } else {
+                                            System.out.println("Carregador sem permissões.");
+                                        }
+
+                                    } else {
+                                        System.out.println("Condutor sem permissões");
+                                    }
+
+                                } else {
+                                    System.out.println("Funcionário inexistente.");
+                                }
+
+                            } else {
+                                System.out.println("Item inexistente.");
+                            }
+                        } else {
+                            System.out.println("Local inexistente.");
+                        }
+                    } else {
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
+
                 case "CC":
+                    String stringClientID = command[1];
+
+                    if(!companyClass.hasClient(stringClientID)){
+                        System.out.println("Cliente inexistente.");
+                    }else{
+                        System.out.println(companyClass.;
+                    }
+
                     break;
                 case "CI":
                     break;

@@ -101,5 +101,7 @@ public interface Company {
     // Set with the given employee permissions
 
     Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited, ID clientID);
+
+    int registerDelivery(String stringClientID, String stringPlaceID, String[] employeeIDs, HashMap<ID, String> itemsDeposited);
     // Sums up the items requierments for the whole deposit
 }

@@ -169,6 +169,11 @@ public class CompanyClass implements Company {
     }
 
     @Override
+    public int registerDelivery(String stringClientID, String stringPlaceID, String[] employeeIDs, HashMap<ID, String> itemsDeposited) {
+        return 0;
+    }
+
+    @Override
     public boolean hasCategory(String category) {
         List<String> keys = companyEmployees.getKeys();
         for (String key : keys) {
