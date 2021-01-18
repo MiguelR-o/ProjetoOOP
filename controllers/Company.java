@@ -107,4 +107,6 @@ public interface Company {
     boolean hasItem(Client client,int ID);
 
     ArrayList<String> extendPermissions(ArrayList<String> permissions);
+
+    void saveFile(String saveFileName);
 }

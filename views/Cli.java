@@ -2,6 +2,7 @@ package views;
 
 import controllers.Company;
 import controllers.CompanyClass;
+import controllers.ReadFile;
 import models.Client;
 import models.ID;
 import models.Item;
@@ -260,34 +261,22 @@ public class Cli {
 
                 case "G":
                     String saveFileName = command[1];
+                    companyClass.saveFile(saveFileName);
+                    System.out.println("Ficheiro gravado com sucesso");
+                    break;
 
-                    try {
-                        FileOutputStream fileOutputStream =
-                                new FileOutputStream(saveFileName);
-                        ObjectOutputStream objectOutputStream =
-                                new ObjectOutputStream(fileOutputStream);
-                        objectOutputStream.writeObject(companyClass);
-                        objectOutputStream.close();
-                        fileOutputStream.close();
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
                 case "L":
                     String readFileName = command[1];
-
-                    try{
-                        FileInputStream fileInputStream = new FileInputStream(readFileName);
-                        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                        companyClass = (CompanyClass)objectInputStream.readObject();
-                        objectInputStream.close();
-                        fileInputStream.close();
-
+                    ReadFile rf = new ReadFile();
+                    try {
+                        companyClass = rf.readFile(readFileName);
+                        System.out.println("Ficheiro lido com sucesso.");
                     }
-                    catch (Exception e){
-                        e.printStackTrace();
+                    catch(Exception e) {
                         System.out.println("Ficheiro inexistente.");
-                        return;
                     }
+                    break;
+
                 case "":
                     endLoop = true;
                     break;

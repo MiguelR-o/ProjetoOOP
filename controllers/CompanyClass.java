@@ -3,6 +3,9 @@ package controllers;
 import models.*;
 import views.Cli;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.ref.Cleaner;
 import java.lang.reflect.Array;
@@ -159,6 +162,22 @@ public class CompanyClass implements Company , Serializable {
 
         return newPerms;
     }
+
+    @Override
+    public void saveFile(String saveFileName) {
+            try {
+                FileOutputStream fileOutputStream =
+                        new FileOutputStream(saveFileName);
+                ObjectOutputStream objectOutputStream =
+                        new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(this);
+                objectOutputStream.close();
+                fileOutputStream.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
 
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
