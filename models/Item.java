@@ -20,6 +20,7 @@ public class Item implements Serializable {
         this.permissions = this.permissionsToArrayList(permissions);
         this.deposits = new HashMap<Integer,Deposit>();
         this.deliveries = new HashMap<Integer,Delivery>();
+        this.amount = 0;
     }
 
     public String getName(){

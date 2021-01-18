@@ -70,8 +70,8 @@ public class CompanyClass implements Company , Serializable {
     }
 
     @Override
-    public Employee getEmployeeByID(int clientManagerID) {
-        return companyEmployees.getEmployee(clientManagerID);
+    public Employee getEmployeeByID(int ID) {
+        return companyEmployees.getEmployee(ID);
     }
 
 
@@ -85,10 +85,6 @@ public class CompanyClass implements Company , Serializable {
         return output;
     }
 
-    public Employee getEmployeebyID(int employeeID) {
-        Employee employee = companyEmployees.getEmployee(employeeID);
-        return employee;
-    }
 
     @Override
     public boolean validEmployeesID(String[] employeeIDs) {
@@ -183,11 +179,38 @@ public class CompanyClass implements Company , Serializable {
         return companyEmployees.hasEmployeeByID(parseInt);
     }
 
-
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
             client.getItemMap().get(key).addAmount(Integer.parseInt(items.get(key)));
         }
+    }
+
+    public int registerDelivery(String clientID, String placeID,String[] employeeIDs,HashMap<Integer,String> items) {
+        int IDClient = Integer.parseInt(clientID);
+        int IDPlace = Integer.parseInt(placeID);
+        Client client = companyClients.get(IDClient);
+        int deliveryID = client.getDeliveryMap().values().size()+1;
+        HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
+        Delivery delivery = new Delivery(deliveryID,IDPlace,client, items,employeeMap);
+        for (Employee employee : employeeMap.values()){
+            employee.getDeliveries().put(delivery.getDeliveryID(), delivery);
+        }
+        client.addDelivery(delivery);
+
+        subItemQuantity(companyClients.get(clientID),items);
+        return delivery.getDeliveryID();
+    }
+
+    @Override
+    public boolean validItemQuantity(HashMap<Integer, String> itemsDelivered, int parseInt) {
+        Client client = companyClients.get(parseInt);
+        for(int itemID : itemsDelivered.keySet()){
+            int available = client.getItemMap().get(itemID).getAmount();
+            if (!(available >= Integer.parseInt(itemsDelivered.get(itemID)))){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -198,9 +221,12 @@ public class CompanyClass implements Company , Serializable {
         int depositID = client.getDepositMap().values().size()+1;
         HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
         Deposit deposit = new Deposit(depositID,IDPlace,client, items,employeeMap);
+        for (Employee employee : employeeMap.values()){
+            employee.getDeposits().put(deposit.getDepositID(), deposit);
+        }
         client.addDeposit(deposit);
 
-        addItemQuantity(companyClients.get(clienID),items);
+        addItemQuantity(companyClients.get(clientID),items);
         return deposit.getDepositID();
     }
 
@@ -339,12 +365,16 @@ public class CompanyClass implements Company , Serializable {
             int managerID = Integer.parseInt(employeeID);
             Client client = new Client(nameClient,clientID,managerID);
             companyClients.put(client.getID(),client);
+            Manager manager = (Manager) companyEmployees.getEmployee(managerID);
+            manager.addClient(client);
             return client.getID();
         }else{
             clientID += 1;
             int managerID = Integer.parseInt(employeeID);
             Client client = new Client(nameClient,clientID,managerID);
             companyClients.put(client.getID(),client);
+            Manager manager = (Manager) companyEmployees.getEmployee(managerID);
+            manager.addClient(client);
             return client.getID();
         }
 

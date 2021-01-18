@@ -111,4 +111,8 @@ public interface Company {
     void saveFile(String saveFileName);
 
     boolean hasEmployeeByID(int parseInt);
+
+    int registerDelivery(String strIDClient, String strIDClient1, String[] iDemployees, HashMap<Integer, String> itemsDelivered);
+
+    boolean validItemQuantity(HashMap<Integer, String> itemsDelivered, int parseInt);
 }

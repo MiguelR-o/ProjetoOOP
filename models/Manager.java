@@ -1,5 +1,7 @@
 package models;
 
+import views.Cli;
+
 public class Manager extends Employee{
     private static final long serialVersionUID = 1L;
     private Client client;
@@ -8,7 +10,9 @@ public class Manager extends Employee{
         this.client = null;
     }
 
-    public
+    public void addClient(Client client){
+        this.client = client;
+    }
 
 
 }

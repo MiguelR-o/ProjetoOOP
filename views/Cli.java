@@ -4,6 +4,7 @@ import controllers.Company;
 import controllers.CompanyClass;
 import controllers.ReadFile;
 import models.Client;
+import models.Employee;
 import models.ID;
 import models.Item;
 
@@ -147,11 +148,10 @@ public class Cli {
 
                     break;
                 case "RE":
-                    /*
-                    String stringClientID = command[1];
-                    String stringPlaceID = command[2];
+                    String strIDClient = command[1];
+                    String strIDPlace = command[2];
                     line = scanner.nextLine();
-                    String[] employeeIDs = line.split(" ");
+                    String[] IDemployees = line.split(" ");
                     HashMap<Integer, String> itemsDelivered = new HashMap<Integer, String>(); // ID , Quantity
                     while (true) {
                         line = scanner.nextLine();
@@ -161,22 +161,23 @@ public class Cli {
                         } else {
                             String stringItemID = command[0];
                             String quantity = command[1];
-                            itemsDeposited.put(Integer.parseInt(stringItemID), quantity);
+                            itemsDelivered.put(Integer.parseInt(stringItemID), quantity);
 
                         }
                     }
-                    if (companyClass.hasClient(stringClientID)) {
-                        if (companyClass.hasPlaceWithID(stringPlaceID)) {
-                            if (companyClass.validItems(itemsDeposited,Integer.parseInt(stringClientID))) {
-                                if (companyClass.validEmployeesID(employeeIDs)) {
-                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                    if (companyClass.hasClient(strIDClient)) {
+                        if (companyClass.hasPlaceWithID(strIDPlace)) {
+                            if (companyClass.validItems(itemsDeposited,Integer.parseInt(strIDClient))) {
+                                if(companyClass.validItemQuantity(itemsDelivered,Integer.parseInt(strIDClient))){
+                                if (companyClass.validEmployeesID(IDemployees)) {
+                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(IDemployees);
                                     Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
-                                            itemsDeposited, Integer.parseInt(stringClientID));
+                                            itemsDeposited, Integer.parseInt(strIDClient));
                                     if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
-                                            int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,
-                                                    employeeIDs, itemsDeposited);
-                                            System.out.printf("Depósito registado com o identificador %d%n", depositID);
+                                            int deliveryID = companyClass.registerDelivery(strIDClient, strIDClient,
+                                                    IDemployees, itemsDelivered);
+                                            System.out.printf("Entrega registada com o identificador %d%n", deliveryID);
                                         } else {
                                             System.out.println("Carregador sem permissões.");
                                         }
@@ -188,6 +189,9 @@ public class Cli {
                                 } else {
                                     System.out.println("Funcionário inexistente.");
                                 }
+                                } else {
+                                        System.out.println("Quantidade insuficiente.");
+                                    }
 
                             } else {
                                 System.out.println("Item inexistente.");
@@ -197,7 +201,7 @@ public class Cli {
                         }
                     } else {
                         System.out.println("Cliente inexistente.");
-                    }*/
+                    }
                     break;
                 case "CC":
                     String strClientID = command[1];
@@ -216,7 +220,7 @@ public class Cli {
                             String place = companyClass.getPlaceByID(client.getDepositMap().get(key).getPlace()).getName();
                             System.out.printf("  %d (%s)%n",key,place);
                         }
-                        System.out.println("Entrgas:");
+                        System.out.println("Entregas:");
                         for(int key : client.orderDeliveryIDs()){
                             String place = companyClass.getPlaceByID(client.getDeliveryMap().get(key).getPlace()).getName();
                             System.out.printf("  %d (%s)%n",key,place);
@@ -260,7 +264,8 @@ public class Cli {
                 case "CF":
                     String strEmployeeID = command[1];
                     if(companyClass.hasEmployeeByID(Integer.parseInt(strEmployeeID))){
-                       //TODO!!!
+                        Employee employee = companyClass.getEmployeeByID(Integer.parseInt(strEmployeeID));
+
                     }else {
                         System.out.println("Funcionário inexistente.");
                     }

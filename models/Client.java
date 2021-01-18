@@ -41,6 +41,9 @@ public class Client implements Serializable {
         return this.name;
     }
 
+    public void addDelivery(Delivery delivery) {
+        deliveries.put(delivery.getDeliveryID(), delivery);
+    }
     public void addDeposit(Deposit deposit) {
         deposits.put(deposit.getDepositID(), deposit);
     }

@@ -108,5 +108,6 @@ public class CompanyEmployees implements Serializable {
         ArrayList<String> keys = new ArrayList<>(List.of("Condutor","Gestor","Carregador"));
         return keys;
     }
+
 }
 
