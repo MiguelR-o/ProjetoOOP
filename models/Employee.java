@@ -1,12 +1,15 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Employee{
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private ID ID;
-    private String type;
     private String permission;
+
 
     public Employee(String name , ID ID , String permission){
         this.name = name;
@@ -19,10 +22,6 @@ public class Employee{
         return this.permission;
     }
 
-    public String getEmployeeType(){
-        return this.type;
-    }
-
     public String getName(){
         return this.name;
     }
@@ -30,6 +29,5 @@ public class Employee{
     public ID getID(){
         return this.ID;
     }
-
 
 }

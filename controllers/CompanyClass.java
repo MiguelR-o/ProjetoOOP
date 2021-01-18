@@ -97,8 +97,10 @@ public class CompanyClass implements Company {
         return  employeeMap;
     }
 
-    public HashMap<ID,Item> createItemMap(Set<ID> itemID, Client client){
-        client.getItemMap().values();
+    public HashMap<ID,Item> addItemQuantity(Set<ID> itemID, Client client){
+        for(ID item:itemID){
+            client.getItemByID(item).addAmount();
+        }
     }
 
     @Override
@@ -108,12 +110,12 @@ public class CompanyClass implements Company {
         Place place = companyPlaces.get(placID);
         Client client = companyClients.get(clienID);
         HashMap<ID,Employee> employeeMap = createEmployeeMap(employeeIDs);
-        HashMap<ID,Item> itemMap = createItemMap(items.keySet(),client);
-        Deposit deposit = new Deposit(clienID,place,client, employeeMap,itemMap)
+        //HashMap<ID,Item> itemMap = createItemMap(items.keySet(),client);
+        Deposit deposit = new Deposit(clienID,place,client, items,employeeMap);
         client.addDeposit(deposit);
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
-        return 0;
+        return deposit.getID().getIDValue();
     }
 
     @Override
@@ -273,11 +275,11 @@ public class CompanyClass implements Company {
         ID IDClient = convertToID(Integer.parseInt(clientID));
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value
-        ID itemID = convertToID(client.getItems().size()+1);
+        ID itemID = convertToID(client.getItemMap().values().size()+1);
         Item registeredItem = new Item(itemName,itemID ,IDClient,itemPermissions);
         //associates item to client
         client.addItem(registeredItem);
-        return registeredItem.getItemID().getID();
+        return registeredItem.getItemID().getIDValue();
     }
 
     @Override
@@ -301,7 +303,7 @@ public class CompanyClass implements Company {
         Place placeToRegister = new Place(placeName,placeID);
         //adding the place to company places
         companyPlaces.put(placeID,placeToRegister);
-        return placeToRegister.getPlaceID().getID();
+        return placeToRegister.getPlaceID().getIDValue();
     }
 
     @Override

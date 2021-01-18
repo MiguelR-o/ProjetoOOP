@@ -1,15 +1,18 @@
 package models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Deposit {
+public class Deposit implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private ID ID;
     private Client client;
-    private HashMap<ID,Item> items;
+    private HashMap<ID,String> items; //ItemID _ amount
     private HashMap<ID,Employee> employees;
-    private Place place;
+    private Place place; //might want a PLACE object
 
-    public Deposit(ID depositID, Place place , Client client, HashMap<ID,Item> itemMap , HashMap<ID,Employee> employeeMap) {
+    public Deposit(ID depositID, Place place , Client client, HashMap<ID,String> itemMap , HashMap<ID,Employee> employeeMap) {
         this.ID = depositID;
         this.place = place;
         this.client = client;
@@ -17,5 +20,9 @@ public class Deposit {
         this.employees = employeeMap;
 
 
+    }
+
+    public ID getDepositID(){
+        return this.ID;
     }
 }
