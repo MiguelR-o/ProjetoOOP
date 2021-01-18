@@ -224,8 +224,8 @@ public class CompanyClass implements Company , Serializable {
         int depositID = client.getDepositMap().values().size()+1;
         HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
         Deposit deposit = new Deposit(depositID,IDPlace,client, items,employeeMap);
-        for (Employee employee : employeeMap.values()){
-            employee.getDeposits().put(deposit.getDepositID(), deposit);
+        for (int empID : employeeMap.keySet()){
+            companyEmployees.getEmployee(empID).addDeposit(deposit);
         }
         for (int itemID : items.keySet()){
             client.getItemMap().get(itemID).addDeposit(deposit);

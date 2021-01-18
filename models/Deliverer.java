@@ -9,6 +9,8 @@ public class Deliverer extends Employee {
 
     public Deliverer(String name, int ID, String type) {
         super(name, ID, type);
+        this.deposits = new HashMap<Integer,Deposit>();
+        this.deliveries = new HashMap<Integer,Delivery>();
     }
 
     public HashMap<Integer,Delivery> getDeliveries(){
