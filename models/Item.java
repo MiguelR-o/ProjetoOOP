@@ -19,6 +19,7 @@ public class Item implements Serializable {
         this.ID = IdNumber;
         this.permissions = this.permissionsToArrayList(permissions);
         this.deposits = new HashMap<Integer,Deposit>();
+        this.deliveries = new HashMap<Integer,Delivery>();
     }
 
     public String getName(){
@@ -67,6 +68,24 @@ public class Item implements Serializable {
 
     public String getItemName(){
         return this.name;
+    }
+
+    public ArrayList<Integer> orderDepositIDs(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int key : deposits.keySet()){
+            list.add(key);
+        }
+        Collections.sort(list);
+        return list;
+    }
+
+    public ArrayList<Integer> orderDeliveryIDs(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int key : deliveries.keySet()){
+            list.add(key);
+        }
+        Collections.sort(list);
+        return list;
     }
 
     private ArrayList<String> permissionsToArrayList(String[] permissions){

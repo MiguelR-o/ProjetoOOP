@@ -103,4 +103,6 @@ public interface Company {
     Place getPlaceByID(int place);
 
     Employee getEmployeeByID(int clientManagerID);
+
+    boolean hasItem(Client client,int ID);
 }

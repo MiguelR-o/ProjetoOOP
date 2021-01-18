@@ -22,6 +22,10 @@ public class Deposit implements Serializable {
         //pensar na melhor maneira de dar store do deposit e dentro do mesmo
         //eficiencia de pesquisa do item
     }
+    public int getItemAmount(int ID){
+        return Integer.parseInt(items.get(ID));
+    }
+
     public int getPlace(){
         return this.place;
     }

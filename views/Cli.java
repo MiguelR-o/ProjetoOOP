@@ -4,7 +4,9 @@ import controllers.Company;
 import controllers.CompanyClass;
 import models.Client;
 import models.ID;
+import models.Item;
 
+import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,6 +227,28 @@ public class Cli {
                     }
                     break;
                 case "CI":
+                    String strclientID = command[1];
+                    String srtItemID = command[2];
+                    if(companyClass.hasClient(strclientID)){
+                       if(companyClass.hasItem(companyClass.getClientByID(Integer.parseInt(strclientID)),Integer.parseInt(srtItemID))){
+                            Item item = companyClass.getClientByID(Integer.parseInt(strclientID)).getItemByID(Integer.parseInt(srtItemID));
+                            ArrayList<String> perms = item.getPermissions();
+                           System.out.printf("%d %s %s%n",item.getAmount(),perms,item.getName());
+                           System.out.println("Depósitos:");
+                           for(int key : item.orderDepositIDs()){
+                               System.out.printf("  %d %d%n",key,item.getDeposits().get(key).getItemAmount(key));
+                           }
+                           System.out.println("Entregas:");
+                           for(int key : item.orderDeliveryIDs()){
+                               System.out.printf("  %d %d%n",key,item.getDeliveries().get(key).getItemAmount(key));
+                           }
+
+                       }else {
+                           System.out.println("Item inexistente.");
+                       }
+                    }else{
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
                 case "CE":
                     break;

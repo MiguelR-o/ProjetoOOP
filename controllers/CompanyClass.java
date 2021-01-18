@@ -135,6 +135,15 @@ public class CompanyClass implements Company , Serializable {
         }
     }
 
+    public boolean hasItem(Client client, int itemID){
+        for(int key : client.getItemMap().keySet()){
+            if(key == itemID){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
             client.getItemMap().get(key).addAmount(Integer.parseInt(items.get(key)));
