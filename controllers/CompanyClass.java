@@ -3,11 +3,13 @@ package controllers;
 import models.*;
 import views.Cli;
 
+import java.io.Serializable;
 import java.lang.ref.Cleaner;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class CompanyClass implements Company {
+public class CompanyClass implements Company , Serializable {
+    private static final long serialVersionUID = 1L;
     private CompanyEmployees companyEmployees;
     private HashMap<Integer,Place> companyPlaces;
     private HashMap<Integer,Client> companyClients;
@@ -125,17 +127,18 @@ public class CompanyClass implements Company {
         //create the map
         HashMap<String,Set> permissionMap = new HashMap<String,Set>();
         //Create the Driver set
-        Set<String> driverSet = Collections.emptySet();
+        Set<String> driverSet = new HashSet<String>();
         //Create the Deliverer set
-        Set<String> delivererSet = Collections.emptySet();
+        Set<String> delivererSet = new HashSet<String>();
         //Search for Drivers and Deliverer until both sets size is = 2
         for (String element : arraylist){
             int elementID = Integer.parseInt(element);
             if (driverSet.size()<2){
                 if(companyEmployees.hasDriver(elementID)){
+                    System.out.println(companyEmployees.getDriver(elementID).getPermission());
                     driverSet.add(companyEmployees.getDriver(elementID).getPermission());
                 }
-            }else if (delivererSet.size() <2 ){
+            }if (delivererSet.size() <2 ){
                 if(companyEmployees.hasDeliverer(elementID)){
                     delivererSet.add(companyEmployees.getDeliverer(elementID).getPermission());
                 }
@@ -151,7 +154,7 @@ public class CompanyClass implements Company {
 
     @Override
     public Set<String> storeItemsDepositedPermissions(HashMap<Integer, String> itemsDeposited,Integer clientID) {
-        Set<String> summedPermission = Collections.emptySet();
+        Set<String> summedPermission = new HashSet<String>();
         Set<Integer> keys = itemsDeposited.keySet();
         HashMap<Integer,Item> clientItemMap = companyClients.get(clientID).getItemMap();
         for (int key : keys){
@@ -280,7 +283,6 @@ public class CompanyClass implements Company {
         int IDClient = Integer.parseInt(clientID);
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value
-        System.out.println(client);
         int itemID = client.getItemMap().values().size()+1;
         Item registeredItem = new Item(itemName,itemID ,IDClient,itemPermissions);
         //associates item to client

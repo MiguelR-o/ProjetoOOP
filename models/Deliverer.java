@@ -3,6 +3,7 @@ package models;
 import java.util.HashMap;
 
 public class Deliverer extends Employee {
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer, Deposit> deposits;
     private HashMap<Integer, Delivery> deliveries;
 

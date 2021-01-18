@@ -71,8 +71,7 @@ public class Cli {
                                 System.out.println("Permissão inválida.");
                             } else {
                                 int itemID = companyClass.registerItem(itemName, clientID, itemPermissions);
-                                System.out.printf("Item registado para o client %d com o identificador %d", clientID,
-                                        itemID);
+                                System.out.printf("Item registado para o client %s com o identificador %s", clientID,itemID);
                             }
                         }
                     } else {

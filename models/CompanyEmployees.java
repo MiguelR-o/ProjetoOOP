@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class CompanyEmployees {
+public class CompanyEmployees implements Serializable {
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer, Driver> drivers;
     private HashMap<Integer, Deliverer> deliverers;
     private HashMap<Integer, Manager> managers;
