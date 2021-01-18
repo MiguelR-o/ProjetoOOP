@@ -46,9 +46,9 @@ public class Cli {
                     if (companyClass.hasClientName(nameClient)) {
                         System.out.println("Cliente existente.");
                     } else {
-                        companyClass.registerClient(nameClient, employeeID);
+                      int clientID = companyClass.registerClient(nameClient, employeeID);
                         System.out.println(
-                                "Cliente registado com o identificador " + companyClass.getClientID(nameClient));
+                                "Cliente registado com o identificador " + clientID);
                     }
                     break;
                 case "RI":

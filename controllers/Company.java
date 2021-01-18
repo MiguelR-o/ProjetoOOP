@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Client;
 import models.Employee;
 import models.ID;
 
@@ -33,13 +34,13 @@ public interface Company {
     // client obj and
     // compares Client.getName() with clientName
 
-    void registerClient(String nameClient, String employID);
+    int registerClient(String nameClient, String employID);
     // Creates an object client with the given values and adds it to the Clients Dic
     // in company
 
-    int getClientID(String nameClient);
-    // Searches for the Client object inside Company's client Dic and returns
-    // client.getID();
+    Client getClientID(ID clientID);
+    // Searches inside companyClients for the mathcing ID and returns client object
+
 
     int getEmployeeID(Employee employee);
     // returns employee.getID();

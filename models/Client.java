@@ -9,15 +9,15 @@ public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     private ID ID;
     private String name;
-    private Manager clientManager;
+    private ID clientManagerID;
     private HashMap<ID, Item> items;
     private HashMap<ID, Deposit> deposits;
     private HashMap<ID, Delivery> deliverys;
 
-    public Client(String name, ID ID, Manager manager) {
+    public Client(String name, ID ID, ID managerID) {
         this.name = name;
         this.ID = ID;
-        this.clientManager = manager;
+        this.clientManagerID = managerID;
     }
 
     public ID getID() {

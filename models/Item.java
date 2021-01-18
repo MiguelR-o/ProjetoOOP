@@ -48,7 +48,7 @@ public class Item implements Serializable {
     }
 
     public void addDeposit(Deposit deposit){
-        deposits.put(deposit.getID(),deposit);
+        deposits.put(deposit.getDepositID(),deposit);
     }
 
     public void addAmount(int value){

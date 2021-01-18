@@ -97,9 +97,9 @@ public class CompanyClass implements Company {
         return  employeeMap;
     }
 
-    public HashMap<ID,Item> addItemQuantity(Set<ID> itemID, Client client){
-        for(ID item:itemID){
-            client.getItemByID(item).addAmount();
+    public HashMap<ID,Item> addItemQuantity(HashMap<ID,String> items, Client client){
+        for(ID item:items.keySet()){
+            client.getItemByID(item).addAmount(items.get(item));
         }
     }
 
@@ -235,23 +235,24 @@ public class CompanyClass implements Company {
     }
 
     @Override
-    public void registerClient(String nameClient,String employeeID) {
-        //TODO verificar se existe pelo menos uma entrada no dic antes de aumentar o ID para todos os casos
+    public int registerClient(String nameClient,String employeeID) {
 
         if (companyClients.isEmpty()){
             ID managerID = convertToID(Integer.parseInt(employeeID));
             Client client = new Client(nameClient,clientID,managerID);
+            return client.getID().getIDValue();
         }else{
             clientID.addOne();
             ID managerID = convertToID(Integer.parseInt(employeeID));
             Client client = new Client(nameClient,clientID,managerID);
+            return client.getID().getIDValue();
         }
 
     }
 
     @Override
-    public int getClientID(String nameClient) {
-        return 0;
+    public Client getClientID(ID clientID) {
+        return companyClients.get(clientID);
     }
 
     @Override
