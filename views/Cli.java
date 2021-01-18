@@ -57,9 +57,9 @@ public class Cli {
                     Boolean validInput = true;
                     if (companyClass.hasClient(clientID)) {
                         String[] itemPermissions = line.split(",");
-                        if (itemPermissions.length == 0) {
+                        if (itemPermissions[0].equals("")) {
                             int itemID = companyClass.registerItem(itemName, clientID, itemPermissions);
-                            System.out.printf("Item registado para o client %d com o identificador %d", clientID,
+                            System.out.printf("Item registado para o client %s com o identificador %s", clientID,
                                     itemID);
                         } else {
                             for (String itemPermission : itemPermissions) {
