@@ -115,7 +115,7 @@ public class CompanyClass implements Company {
         client.addDeposit(deposit);
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
-        return deposit.getID().getIDValue();
+        return deposit.getDepositID().getIDValue();
     }
 
     @Override
@@ -192,7 +192,6 @@ public class CompanyClass implements Company {
                 return true;
             }
         }
-
         return false;
     }
 

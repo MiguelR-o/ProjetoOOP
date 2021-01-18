@@ -4,6 +4,7 @@ import controllers.Company;
 import controllers.CompanyClass;
 import models.ID;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class Cli {
                 case "RI":
                     String clientID = command[1];
                     String itemName = command[2];
-                    line = Scanner.nextline();
+                    line = scanner.nextLine();
                     Boolean validInput = true;
                     if (companyClass.hasClient(clientID)) {
                         String[] itemPermissions = line.split(",");
@@ -152,6 +153,37 @@ public class Cli {
                     break;
                 case "CF":
                     break;
+
+                case "G":
+                    String saveFileName = command[1];
+
+                    try {
+                        FileOutputStream fileOutputStream =
+                                new FileOutputStream(saveFileName);
+                        ObjectOutputStream objectOutputStream =
+                                new ObjectOutputStream(fileOutputStream);
+                        objectOutputStream.writeObject(companyClass);
+                        objectOutputStream.close();
+                        fileOutputStream.close();
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+                case "L":
+                    String readFileName = command[1];
+
+                    try{
+                        FileInputStream fileInputStream = new FileInputStream(readFileName);
+                        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                        companyClass = (CompanyClass)objectInputStream.readObject();
+                        objectInputStream.close();
+                        fileInputStream.close();
+
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        System.out.printf("Ficheiro inexistente.");
+                        return;
+                    }
                 case "":
                     endLoop = true;
                     break;
