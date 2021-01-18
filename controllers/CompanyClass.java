@@ -268,18 +268,14 @@ public class CompanyClass implements Company , Serializable {
         return companyClients.get(clientID);
     }
 
-    public Client getClientID(int clientID) {
-        return companyClients.get(clientID);
-    }
-
 
     @Override
     public int registerItem(String itemName, String clientID, String[] itemPermissions) {
-        if (itemPermissions.length == 0) {
+        /*if (itemPermissions.[0]) {
             //in case no permission was declared
            String[] itemPermissions2 = {"N"};
            itemPermissions = itemPermissions2;
-        }
+        }*/
         int IDClient = Integer.parseInt(clientID);
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value

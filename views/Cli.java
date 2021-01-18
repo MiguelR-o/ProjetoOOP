@@ -58,7 +58,8 @@ public class Cli {
                     if (companyClass.hasClient(clientID)) {
                         String[] itemPermissions = line.split(",");
                         if (itemPermissions[0].equals("")) {
-                            int itemID = companyClass.registerItem(itemName, clientID, itemPermissions);
+                            String[] defaultPermission = {"N"};
+                            int itemID = companyClass.registerItem(itemName, clientID, defaultPermission);
                             System.out.printf("Item registado para o client %s com o identificador %s", clientID,
                                     itemID);
                         } else {
@@ -141,6 +142,56 @@ public class Cli {
 
                     break;
                 case "RE":
+                    String stringClientID = command[1];
+                    String stringPlaceID = command[2];
+                    line = scanner.nextLine();
+                    String[] employeeIDs = line.split(" ");
+                    HashMap<Integer, String> itemsDelivered = new HashMap<Integer, String>(); // ID , Quantity
+                    while (true) {
+                        line = scanner.nextLine();
+                        command = line.split(" ");
+                        if (command[0].equals("")) {
+                            break;
+                        } else {
+                            String stringItemID = command[0];
+                            String quantity = command[1];
+                            itemsDeposited.put(Integer.parseInt(stringItemID), quantity);
+
+                        }
+                    }
+                    if (companyClass.hasClient(stringClientID)) {
+                        if (companyClass.hasPlaceWithID(stringPlaceID)) {
+                            if (companyClass.validItems(itemsDeposited,Integer.parseInt(stringClientID))) {
+                                if (companyClass.validEmployeesID(employeeIDs)) {
+                                    HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
+                                    Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
+                                            itemsDeposited, Integer.parseInt(stringClientID));
+                                    if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
+                                        if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
+                                            int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,
+                                                    employeeIDs, itemsDeposited);
+                                            System.out.printf("Depósito registado com o identificador %d", depositID);
+                                        } else {
+                                            System.out.println("Carregador sem permissões.");
+                                        }
+
+                                    } else {
+                                        System.out.println("Condutor sem permissões");
+                                    }
+
+                                } else {
+                                    System.out.println("Funcionário inexistente.");
+                                }
+
+                            } else {
+                                System.out.println("Item inexistente.");
+                            }
+                        } else {
+                            System.out.println("Local inexistente.");
+                        }
+                    } else {
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
                 case "CC":
                     break;
