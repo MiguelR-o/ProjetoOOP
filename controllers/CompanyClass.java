@@ -195,6 +195,9 @@ public class CompanyClass implements Company , Serializable {
         for (Employee employee : employeeMap.values()){
             employee.getDeliveries().put(delivery.getDeliveryID(), delivery);
         }
+        for (int itemID : items.keySet()){
+            client.getItemMap().get(itemID).addDelivery(delivery);
+        }
         client.addDelivery(delivery);
 
         subItemQuantity(companyClients.get(clientID),items);
@@ -223,6 +226,9 @@ public class CompanyClass implements Company , Serializable {
         Deposit deposit = new Deposit(depositID,IDPlace,client, items,employeeMap);
         for (Employee employee : employeeMap.values()){
             employee.getDeposits().put(deposit.getDepositID(), deposit);
+        }
+        for (int itemID : items.keySet()){
+            client.getItemMap().get(itemID).addDeposit(deposit);
         }
         client.addDeposit(deposit);
 
@@ -331,7 +337,6 @@ public class CompanyClass implements Company , Serializable {
             return employee.getID();
         }
         return 0;
-
 
     }
 
