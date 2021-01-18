@@ -29,9 +29,6 @@ public class Item implements Serializable {
         return this.ID;
     }
 
-    public HashMap<Integer,Deposit> getDepositsMap(){
-        return this.deposits;
-    }
 
     public ArrayList<String> getPermissions(){
         return this.permissions;
