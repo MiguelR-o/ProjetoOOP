@@ -105,4 +105,6 @@ public interface Company {
     Employee getEmployeeByID(int clientManagerID);
 
     boolean hasItem(Client client,int ID);
+
+    ArrayList<String> extendPermissions(ArrayList<String> permissions);
 }

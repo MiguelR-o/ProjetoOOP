@@ -7,7 +7,7 @@ public class Place implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private int ID;
-    private HashMap<ID,Delivery> deliverys;
+    private HashMap<Integer,Delivery> deliverys;
 
 
     public Place(String name , int placeID){

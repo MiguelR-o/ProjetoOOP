@@ -144,6 +144,22 @@ public class CompanyClass implements Company , Serializable {
         return false;
     }
 
+    @Override
+    public ArrayList<String> extendPermissions(ArrayList<String> permissions) {
+        ArrayList<String> newPerms = new ArrayList<String>();
+        for(int i = 0; i< permissions.size();i++){
+            if(permissions.get(i).equals("N")){
+                newPerms.add("Normal");
+            }else if(permissions.get(i).equals("S")){
+                newPerms.add("Seguro");
+            }else{
+                newPerms.add("Perigoso");
+            }
+        }
+
+        return newPerms;
+    }
+
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
             client.getItemMap().get(key).addAmount(Integer.parseInt(items.get(key)));

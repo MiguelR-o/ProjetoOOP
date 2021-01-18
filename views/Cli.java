@@ -226,13 +226,14 @@ public class Cli {
                         System.out.println("Cliente inexistente.");
                     }
                     break;
+
                 case "CI":
                     String strclientID = command[1];
                     String srtItemID = command[2];
                     if(companyClass.hasClient(strclientID)){
                        if(companyClass.hasItem(companyClass.getClientByID(Integer.parseInt(strclientID)),Integer.parseInt(srtItemID))){
                             Item item = companyClass.getClientByID(Integer.parseInt(strclientID)).getItemByID(Integer.parseInt(srtItemID));
-                            ArrayList<String> perms = item.getPermissions();
+                            ArrayList<String> perms = companyClass.extendPermissions(item.getPermissions());
                            System.out.printf("%d %s %s%n",item.getAmount(),perms,item.getName());
                            System.out.println("Depósitos:");
                            for(int key : item.orderDepositIDs()){
@@ -250,8 +251,10 @@ public class Cli {
                         System.out.println("Cliente inexistente.");
                     }
                     break;
+
                 case "CE":
                     break;
+
                 case "CF":
                     break;
 
