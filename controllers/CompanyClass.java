@@ -53,6 +53,35 @@ public class CompanyClass implements Company , Serializable {
         return true;
     }
 
+    public ArrayList<String> itemOutputCCPermissions(Client client,int ID){
+        ArrayList<String> output = new ArrayList<String>();
+        for (String permission : client.getItemMap().get(ID).getPermissions()){
+            output.add(permission);
+        }
+        return output;
+    }
+
+    @Override
+    public Place getPlaceByID(int place) {
+        return  companyPlaces.get(place);
+    }
+
+
+    public ArrayList<String> prepareItemOutputCC(Client client,int ID){
+        ArrayList<String> output = new ArrayList<String>();
+        HashMap<Integer,Item> clientItems = client.getItemMap();
+        Item item = clientItems.get(ID);
+        output.add(Integer.toString(item.getItemID()));
+        output.add(Integer.toString(item.getAmount()));
+        output.add(item.getName());
+        return output;
+    }
+
+    public Employee getEmployeebyID(int employeeID) {
+        Employee employee = companyEmployees.getEmployee(employeeID);
+        return employee;
+    }
+
     @Override
     public boolean validEmployeesID(String[] employeeIDs) {
         for(String id : employeeIDs){
@@ -111,7 +140,6 @@ public class CompanyClass implements Company , Serializable {
         HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
         Deposit deposit = new Deposit(clienID,placID,client, items,employeeMap);
         client.addDeposit(deposit);
-
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
         return deposit.getDepositID();
@@ -271,11 +299,6 @@ public class CompanyClass implements Company , Serializable {
 
     @Override
     public int registerItem(String itemName, String clientID, String[] itemPermissions) {
-        /*if (itemPermissions.[0]) {
-            //in case no permission was declared
-           String[] itemPermissions2 = {"N"};
-           itemPermissions = itemPermissions2;
-        }*/
         int IDClient = Integer.parseInt(clientID);
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value

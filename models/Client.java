@@ -1,9 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,6 +49,26 @@ public class Client implements Serializable {
         return this.clientManagerID;
     }
 
+    public ArrayList<Integer> orderDepositIDs(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int key : deposits.keySet()){
+            list.add(key);
+        }
+        Collections.sort(list);
+        return list;
+    }
+
+    public ArrayList<Integer> orderDeliveryIDs(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int key : deliveries.keySet()){
+            list.add(key);
+        }
+        Collections.sort(list);
+        return list;
+    }
+    public HashMap<Integer, Delivery> getDeliveryMap() {
+        return this.deliveries;
+    }
     public HashMap<Integer, Deposit> getDepositMap() {
         return this.deposits;
     }

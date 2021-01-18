@@ -22,7 +22,9 @@ public class Deposit implements Serializable {
         //pensar na melhor maneira de dar store do deposit e dentro do mesmo
         //eficiencia de pesquisa do item
     }
-
+    public int getPlace(){
+        return this.place;
+    }
     public int getDepositID(){
         return this.ID;
     }

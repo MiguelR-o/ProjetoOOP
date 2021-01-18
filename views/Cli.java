@@ -2,9 +2,11 @@ package views;
 
 import controllers.Company;
 import controllers.CompanyClass;
+import models.Client;
 import models.ID;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -195,6 +197,32 @@ public class Cli {
                     }*/
                     break;
                 case "CC":
+                    String strClientID = command[1];
+                    if(companyClass.hasClient(strClientID)){
+                        Client client = companyClass.getClientByID(Integer.parseInt(strClientID));
+                        System.out.printf(client.getName());
+                        System.out.printf(companyClass.getClientByID(client.getClientManagerID()).getName());
+                        System.out.println("Items:");
+                        for (int key : client.getItemMap().keySet()){
+                           ArrayList<String> output = companyClass.prepareItemOutputCC(client,key);
+                            ArrayList<String> permissions = companyClass.itemOutputCCPermissions(client,key);
+                            System.out.printf("  %s (%s) %s %s%n",output.get(0),output.get(1),output.get(2),permissions);
+                        }
+                        System.out.println("Depósitos:");
+                        for(int key : client.orderDepositIDs()){
+                            String place = companyClass.getPlaceByID(client.getDepositMap().get(key).getPlace()).getName();
+                            System.out.printf("  %d (%s)%n",key,place);
+                        }
+                        System.out.println("Entrgas:");
+                        for(int key : client.orderDeliveryIDs()){
+                            String place = companyClass.getPlaceByID(client.getDeliveryMap().get(key).getPlace()).getName();
+                            System.out.printf("  %d (%s)%n",key,place);
+                        }
+
+
+                    }else{
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
                 case "CI":
                     break;

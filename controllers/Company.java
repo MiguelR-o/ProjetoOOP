@@ -3,7 +3,9 @@ package controllers;
 import models.Client;
 import models.Employee;
 import models.ID;
+import models.Place;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -93,4 +95,10 @@ public interface Company {
 
     Set<String> storeItemsDepositedPermissions(HashMap<Integer, String> itemsDeposited, Integer clientID);
     // Sums up the items requierments for the whole deposit
+
+    ArrayList<String> prepareItemOutputCC(Client client, int key);
+
+    ArrayList<String> itemOutputCCPermissions(Client client, int key);
+
+    Place getPlaceByID(int place);
 }

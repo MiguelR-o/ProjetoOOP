@@ -21,6 +21,9 @@ public class Item implements Serializable {
         this.deposits = new HashMap<Integer,Deposit>();
     }
 
+    public String getName(){
+        return this.name;
+    }
     public int getItemID() {
         return this.ID;
     }
