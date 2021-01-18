@@ -55,6 +55,8 @@ public class Item implements Serializable {
         deposits.put(deposit.getDepositID(),deposit);
     }
 
+    public void subAmount(int value) {this.amount -= value;}
+
     public void addAmount(int value){
         this.amount += value;
     }

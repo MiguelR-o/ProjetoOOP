@@ -129,6 +129,12 @@ public class CompanyClass implements Company , Serializable {
         return  employeeMap;
     }
 
+    public void subItemQuantity(Client client, HashMap<Integer,String> items){
+        for( int key : items.keySet()){
+            client.getItemMap().get(key).subAmount(Integer.parseInt(items.get(key)));
+        }
+    }
+
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
             client.getItemMap().get(key).addAmount(Integer.parseInt(items.get(key)));
@@ -145,8 +151,6 @@ public class CompanyClass implements Company , Serializable {
         Deposit deposit = new Deposit(clienID,placID,client, items,employeeMap);
         client.addDeposit(deposit);
         addItemQuantity(companyClients.get(clienID),items);
-        //add it to client , all employees that participate , to all items
-        //increase the amount of items in client
         return deposit.getDepositID();
     }
 
