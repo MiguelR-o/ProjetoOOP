@@ -280,6 +280,7 @@ public class CompanyClass implements Company {
         int IDClient = Integer.parseInt(clientID);
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value
+        System.out.println(client);
         int itemID = client.getItemMap().values().size()+1;
         Item registeredItem = new Item(itemName,itemID ,IDClient,itemPermissions);
         //associates item to client

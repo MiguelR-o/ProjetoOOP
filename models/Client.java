@@ -18,6 +18,9 @@ public class Client implements Serializable {
         this.name = name;
         this.ID = ID;
         this.clientManagerID = managerID;
+        this.items = new HashMap<Integer,Item>();
+        this.deposits = new HashMap<Integer,Deposit>();
+        this.deliveries = new HashMap<Integer,Delivery>();
     }
 
     public int getID() {
