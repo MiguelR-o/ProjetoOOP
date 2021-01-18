@@ -1,7 +1,7 @@
 package models;
 
 public class Manager extends Employee{
-    public Manager(String name, models.ID ID, String type) {
+    public Manager(String name, int ID, String type) {
         super(name, ID, type);
     }
 

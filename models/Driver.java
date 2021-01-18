@@ -3,19 +3,19 @@ package models;
 import java.util.HashMap;
 
 public class Driver extends Employee {
-    private HashMap<ID, Deposit> deposits;
-    private HashMap<ID, Delivery> deliveries;
+    private HashMap<Integer, Deposit> deposits;
+    private HashMap<Integer, Delivery> deliveries;
 
-    public Driver(String name, ID ID, String permission) {
+    public Driver(String name, int ID, String permission) {
         super(name, ID, permission);
-        this.deposits = new HashMap<ID, Deposit>();
-        this.deliveries = new HashMap<ID, Delivery>();
+        this.deposits = new HashMap<Integer, Deposit>();
+        this.deliveries = new HashMap<Integer, Delivery>();
     }
 
-    public HashMap<ID,Delivery> getDeliveries(){
+    public HashMap<Integer,Delivery> getDeliveries(){
         return this.deliveries;
     }
-    public HashMap<ID,Deposit> getDeposits(){
+    public HashMap<Integer,Deposit> getDeposits(){
         return this.deposits;
     }
 

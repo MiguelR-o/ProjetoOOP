@@ -93,7 +93,7 @@ public class Cli {
                     String stringPlaceID = command[2];
                     line = scanner.nextLine();
                     String[] employeeIDs = line.split(" ");
-                    HashMap<ID, String> itemsDeposited = new HashMap<ID, String>(); // ID , Quantity
+                    HashMap<Integer, String> itemsDeposited = new HashMap<Integer, String>(); // ID , Quantity
                     while (true) {
                         line = scanner.nextLine();
                         command = line.split(" ");
@@ -102,18 +102,17 @@ public class Cli {
                         } else {
                             String stringItemID = command[0];
                             String quantity = command[1];
-                            itemsDeposited.put(companyClass.convertToID(Integer.parseInt(stringItemID)), quantity);
+                            itemsDeposited.put(Integer.parseInt(stringItemID), quantity);
 
                         }
                     }
                     if (companyClass.hasClient(stringClientID)) {
                         if (companyClass.hasPlaceWithID(stringPlaceID)) {
-                            if (companyClass.validItems(itemsDeposited,
-                                    companyClass.convertToID(Integer.parseInt(stringClientID)))) {
+                            if (companyClass.validItems(itemsDeposited,Integer.parseInt(stringClientID))) {
                                 if (companyClass.validEmployeesID(employeeIDs)) {
                                     HashMap<String, Set> permissionMap = companyClass.createPermissionMap(employeeIDs);
                                     Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
-                                            itemsDeposited, companyClass.convertToID(Integer.parseInt(stringClientID)));
+                                            itemsDeposited, Integer.parseInt(stringClientID));
                                     if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
                                             int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,

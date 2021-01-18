@@ -12,11 +12,11 @@ public class CompanyClass implements Company {
     private HashMap<Integer,Place> companyPlaces;
     private HashMap<Integer,Client> companyClients;
     private Permission permissions;
-    private ID employeeID;
-    private ID placeID;
-    private ID deliveryID;
-    private ID depositID;
-    private ID clientID;
+    private int employeeID;
+    private int placeID;
+    private int deliveryID;
+    private int depositID;
+    private int clientID;
 
     public CompanyClass() {
 
@@ -24,28 +24,24 @@ public class CompanyClass implements Company {
         this.companyEmployees = new CompanyEmployees();
         this.companyClients = new HashMap<Integer, Client>();
         this.companyPlaces = new HashMap<Integer,Place>();
-        this.employeeID = new ID(1);
-        this.clientID = new ID(1);
-        this.placeID = new ID(1);
-        this.depositID = new ID(1);
-        this.deliveryID = new ID(1);
+        this.employeeID = 1;
+        this.clientID = 1;
+        this.placeID =1;
+        this.depositID =1;
+        this.deliveryID = 1;
     }
 
-    public ID convertToID(int input ) {
-        ID newInput = new ID(input);
-        return newInput;
-    }
 
     @Override
     public boolean hasPlaceWithID(String placeID) {
-        return companyPlaces.containsKey(convertToID(Integer.parseInt(placeID)));
+        return companyPlaces.containsKey(Integer.parseInt(placeID));
     }
 
     @Override
-    public boolean validItems(HashMap<Integer, String> itemsDeposited, ID clientID) {
+    public boolean validItems(HashMap<Integer, String> itemsDeposited, int clientID) {
        //go to the given client and getItems , check for each key of the given map if exists in getItems Map
-       Client client= companyClients.get(clientID.getIDValue());
-       HashMap<ID,Item> items = client.getItemMap();
+       Client client= companyClients.get(clientID);
+       HashMap<Integer,Item> items = client.getItemMap();
        Set<Integer> depositedIDs =  itemsDeposited.keySet();
        for (Integer depositID : depositedIDs){
            if(!items.containsKey(depositID)){
@@ -58,7 +54,7 @@ public class CompanyClass implements Company {
     @Override
     public boolean validEmployeesID(String[] employeeIDs) {
         for(String id : employeeIDs){
-           if(!companyEmployees.hasEmployeeByID(convertToID(Integer.parseInt(id)))){
+           if(!companyEmployees.hasEmployeeByID(Integer.parseInt(id))){
                return false;
            }
         }
@@ -87,36 +83,36 @@ public class CompanyClass implements Company {
         return true;
     }
 
-    public HashMap<ID,Employee> createEmployeeMap(String[] employeeIDs){
-        HashMap<ID,Employee> employeeMap = new HashMap<>();
+    public HashMap<Integer,Employee> createEmployeeMap(String[] employeeIDs){
+        HashMap<Integer,Employee> employeeMap = new HashMap<Integer,Employee>();
         for (String key : employeeIDs){
-            Employee employee = companyEmployees.getEmployee(convertToID(Integer.parseInt(key)));
-            employeeMap.put(convertToID(Integer.parseInt(key)), employee);
+            Employee employee = companyEmployees.getEmployee(Integer.parseInt(key));
+            employeeMap.put(Integer.parseInt(key), employee);
         }
 
         return  employeeMap;
     }
 
-    public void addItemQuantity(HashMap<ID,String> items, Client client){
+    public void addItemQuantity(HashMap<Integer,String> items, Client client){
         //TODO!!!!
-        for(ID item:items.keySet()){
+        for(Integer item:items.keySet()){
             client.getItemByID(item).addAmount(Integer.parseInt(items.get(item)));
         }
     }
 
     @Override
-    public int registerDeposit(String clientID, String placeID,String[] employeeIDs,HashMap<ID,String> items) {
-        ID clienID = convertToID(Integer.parseInt(clientID));
-        ID placID = convertToID((Integer.parseInt(placeID)));
+    public int registerDeposit(String clientID, String placeID,String[] employeeIDs,HashMap<Integer,String> items) {
+        int clienID = Integer.parseInt(clientID);
+        int placID = Integer.parseInt(placeID);
         Place place = companyPlaces.get(placID);
         Client client = companyClients.get(clienID);
-        HashMap<ID,Employee> employeeMap = createEmployeeMap(employeeIDs);
+        HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
         Deposit deposit = new Deposit(clienID,placID,client, items,employeeMap);
         client.addDeposit(deposit);
 
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
-        return deposit.getDepositID().getIDValue();
+        return deposit.getDepositID();
     }
 
     @Override
@@ -134,7 +130,7 @@ public class CompanyClass implements Company {
         Set<String> delivererSet = Collections.emptySet();
         //Search for Drivers and Deliverer until both sets size is = 2
         for (String element : arraylist){
-            ID elementID = convertToID(Integer.parseInt(element));
+            int elementID = Integer.parseInt(element);
             if (driverSet.size()<2){
                 if(companyEmployees.hasDriver(elementID)){
                     driverSet.add(companyEmployees.getDriver(elementID).getPermission());
@@ -154,11 +150,11 @@ public class CompanyClass implements Company {
     }
 
     @Override
-    public Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited,ID clientID) {
+    public Set<String> storeItemsDepositedPermissions(HashMap<Integer, String> itemsDeposited,Integer clientID) {
         Set<String> summedPermission = Collections.emptySet();
-        Set<ID> keys = itemsDeposited.keySet();
-        HashMap<ID,Item> clientItemMap = companyClients.get(clientID).getItemMap();
-        for (ID key : keys){
+        Set<Integer> keys = itemsDeposited.keySet();
+        HashMap<Integer,Item> clientItemMap = companyClients.get(clientID).getItemMap();
+        for (int key : keys){
             if (summedPermission.size()<3){
                ArrayList<String> itemPermissions = clientItemMap.get(key).getPermissions();
                for(String permission : itemPermissions){
@@ -199,24 +195,24 @@ public class CompanyClass implements Company {
     @Override
     public int registerEmployee(String category, String permission, String name) {
         if (companyEmployees.isEmpty()){
-            this.employeeID.subtractOne();
+            this.employeeID -= 1;
         }
-        this.employeeID.addOne();
+        this.employeeID += 1;
         if(category.equals("Condutor")){
             Driver employee = new Driver(name,employeeID,permission);
             companyEmployees.addDriver(employee.getID(), employee);
-            return employee.getID().getIDValue();
+            return employee.getID();
 
         }else if(category.equals("Carregador")){
             Deliverer employee = new Deliverer(name,employeeID,permission);
             companyEmployees.addDeliverer(employee.getID(), employee);
 
-            return employee.getID().getIDValue();
+            return employee.getID();
 
         }else if(category.equals("Gestor")){
             Manager employee = new Manager(name,employeeID,permission);
             companyEmployees.addManager(employee.getID(), employee);
-            return employee.getID().getIDValue();
+            return employee.getID();
         }
         return 0;
 
@@ -225,10 +221,10 @@ public class CompanyClass implements Company {
 
     @Override
     public boolean hasClient(String clientID) {
-        ID IDClient = convertToID(Integer.parseInt(clientID));
-        Set<ID> coll = companyClients.keySet();
-        for (ID key : coll){
-            if(key.getIDValue() == IDClient.getIDValue()){
+        int IDClient = Integer.parseInt(clientID);
+        Set<Integer> coll = companyClients.keySet();
+        for (int key : coll){
+            if(key== IDClient){
                return true;
             }
         }
@@ -250,22 +246,26 @@ public class CompanyClass implements Company {
     public int registerClient(String nameClient,String employeeID) {
 
         if (companyClients.isEmpty()){
-            ID managerID = convertToID(Integer.parseInt(employeeID));
+            int managerID = Integer.parseInt(employeeID);
             Client client = new Client(nameClient,clientID,managerID);
             companyClients.put(client.getID(),client);
-            return client.getID().getIDValue();
+            return client.getID();
         }else{
-            clientID.addOne();
-            ID managerID = convertToID(Integer.parseInt(employeeID));
+            clientID += 1;
+            int managerID = Integer.parseInt(employeeID);
             Client client = new Client(nameClient,clientID,managerID);
             companyClients.put(client.getID(),client);
-            return client.getID().getIDValue();
+            return client.getID();
         }
 
     }
 
     @Override
-    public Client getClientID(ID clientID) {
+    public Client getClientByID(int clientID) {
+        return companyClients.get(clientID);
+    }
+
+    public Client getClientID(int clientID) {
         return companyClients.get(clientID);
     }
 
@@ -277,14 +277,14 @@ public class CompanyClass implements Company {
            String[] itemPermissions2 = {"N"};
            itemPermissions = itemPermissions2;
         }
-        ID IDClient = convertToID(Integer.parseInt(clientID));
+        int IDClient = Integer.parseInt(clientID);
         Client client = companyClients.get(IDClient);
         //creates the ID to item and generates the item value
-        ID itemID = convertToID(client.getItemMap().values().size()+1);
+        int itemID = client.getItemMap().values().size()+1;
         Item registeredItem = new Item(itemName,itemID ,IDClient,itemPermissions);
         //associates item to client
         client.addItem(registeredItem);
-        return registeredItem.getItemID().getIDValue();
+        return registeredItem.getItemID();
     }
 
     @Override
@@ -302,13 +302,13 @@ public class CompanyClass implements Company {
     public int registerPlace(String placeName) {
         if(companyPlaces.isEmpty()){
             //to start @ 1
-            placeID.subtractOne();
+            placeID -= 1;
         }
-        placeID.addOne();
+        placeID += 1;
         Place placeToRegister = new Place(placeName,placeID);
         //adding the place to company places
         companyPlaces.put(placeID,placeToRegister);
-        return placeToRegister.getPlaceID().getIDValue();
+        return placeToRegister.getPlaceID();
     }
 
     @Override

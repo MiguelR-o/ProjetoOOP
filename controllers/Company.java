@@ -39,7 +39,7 @@ public interface Company {
     // Creates an object client with the given values and adds it to the Clients Dic
     // in company
 
-    Client getClientID(ID clientID);
+    Client getClientByID(int clientID);
     // Searches inside companyClients for the mathcing ID and returns client object
 
 
@@ -61,13 +61,11 @@ public interface Company {
     // Receives a permission and checks if its on of the values inside the
     // permissions Enum;
 
-    ID convertToID(int parseInt);
-    // Receives an integer and turns into an ID object
 
     boolean hasPlaceWithID(String placeID);
     // Checks in companyPlaces for the key placeID
 
-    boolean validItems(HashMap<ID, String> itemsDeposited, ID clientID);
+    boolean validItems(HashMap<Integer, String> itemsDeposited, int clientID);
     // Checks if for each key of itemsDeposited if its in the client Item list
 
     boolean validEmployeesID(String[] employeeIDs);
@@ -83,7 +81,7 @@ public interface Company {
     // contais the
     // item permissions
 
-    int registerDeposit(String clientID, String placeID, String[] employeeIDs, HashMap<ID, String> items);
+    int registerDeposit(String clientID, String placeID, String[] employeeIDs, HashMap<Integer, String> items);
     // Creates a Deposit object and stores it inside the each item Deposit map ,
     // client deposit map
     // aswell as each employee deposit map
@@ -93,6 +91,6 @@ public interface Company {
     // the value a
     // Set with the given employee permissions
 
-    Set<String> storeItemsDepositedPermissions(HashMap<ID, String> itemsDeposited, ID clientID);
+    Set<String> storeItemsDepositedPermissions(HashMap<Integer, String> itemsDeposited, Integer clientID);
     // Sums up the items requierments for the whole deposit
 }

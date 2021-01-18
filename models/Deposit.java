@@ -6,13 +6,13 @@ import java.util.HashMap;
 public class Deposit implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private ID ID;
+    private int ID;
     private Client client;
-    private HashMap<ID,String> items; //ItemID _ amount
-    private HashMap<ID,Employee> employees;
-    private ID place; //might want a PLACE object
+    private HashMap<Integer,String> items; //ItemID _ amount
+    private HashMap<Integer,Employee> employees;
+    private int place; //might want a PLACE object
 
-    public Deposit(ID depositID, ID place , Client client, HashMap<ID,String> itemMap , HashMap<ID,Employee> employeeMap) {
+    public Deposit(int depositID, int place , Client client, HashMap<Integer,String> itemMap , HashMap<Integer,Employee> employeeMap) {
         this.ID = depositID;
         this.place = place;
         this.client = client;
@@ -23,7 +23,7 @@ public class Deposit implements Serializable {
         //eficiencia de pesquisa do item
     }
 
-    public ID getDepositID(){
+    public int getDepositID(){
         return this.ID;
     }
 }

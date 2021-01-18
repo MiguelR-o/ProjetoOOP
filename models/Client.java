@@ -7,28 +7,28 @@ import java.util.Set;
 
 public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
-    private ID ID;
+    private int ID;
     private String name;
-    private ID clientManagerID;
-    private HashMap<ID, Item> items;
-    private HashMap<ID, Deposit> deposits;
-    private HashMap<ID, Delivery> deliveries;
+    private int clientManagerID;
+    private HashMap<Integer, Item> items;
+    private HashMap<Integer, Deposit> deposits;
+    private HashMap<Integer, Delivery> deliveries;
 
-    public Client(String name, ID ID, ID managerID) {
+    public Client(String name, int ID, int managerID) {
         this.name = name;
         this.ID = ID;
         this.clientManagerID = managerID;
     }
 
-    public ID getID() {
+    public int getID() {
         return this.ID;
     }
 
-    public HashMap<ID, Item> getItemMap() {
+    public HashMap<Integer, Item> getItemMap() {
         return this.items;
     }
 
-    public Item getItemByID(ID itemID) {
+    public Item getItemByID(int itemID) {
         return items.get(itemID);
     }
 
@@ -44,11 +44,11 @@ public class Client implements Serializable {
         deposits.put(deposit.getDepositID(), deposit);
     }
 
-    public ID getClientManagerID(){
+    public int getClientManagerID(){
         return this.clientManagerID;
     }
 
-    public HashMap<ID, Deposit> getDepositMap() {
+    public HashMap<Integer, Deposit> getDepositMap() {
         return this.deposits;
     }
 }

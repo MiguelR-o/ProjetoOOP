@@ -7,11 +7,11 @@ import java.util.HashMap;
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
-    private ID ID;
+    private int ID;
     private String permission;
 
 
-    public Employee(String name , ID ID , String permission){
+    public Employee(String name , int ID , String permission){
         this.name = name;
         this.ID = ID;
         this.permission = permission;
@@ -26,7 +26,7 @@ public class Employee implements Serializable {
         return this.name;
     }
 
-    public ID getID(){
+    public int getID(){
         return this.ID;
     }
 

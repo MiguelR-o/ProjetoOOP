@@ -6,26 +6,26 @@ import java.util.*;
 
 public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
-    private ID ID;
+    private int ID;
     private String name;
     private ArrayList<String> permissions;
     private int amount;
-    private HashMap<ID,Deposit> deposits;
-    private HashMap<ID,Delivery> deliveries;
+    private HashMap<Integer,Deposit> deposits;
+    private HashMap<Integer,Delivery> deliveries;
 
 
-    public Item(String name, ID IdNumber,ID clientID, String[] permissions){
+    public Item(String name, int IdNumber,int clientID, String[] permissions){
         this.name = name;
         this.ID = IdNumber;
         this.permissions = this.permissionsToArrayList(permissions);
-        this.deposits = new HashMap<ID,Deposit>();
+        this.deposits = new HashMap<Integer,Deposit>();
     }
 
-    public ID getItemID() {
+    public int getItemID() {
         return this.ID;
     }
 
-    public HashMap<ID,Deposit> getDepositsMap(){
+    public HashMap<Integer,Deposit> getDepositsMap(){
         return this.deposits;
     }
 
@@ -36,7 +36,7 @@ public class Item implements Serializable {
     public void withdrawAmount(int value){
         this.amount -= value;
     }
-    public HashMap<ID,Delivery> getDeliveries(){
+    public HashMap<Integer,Delivery> getDeliveries(){
         return this.deliveries;
     }
 
@@ -44,7 +44,7 @@ public class Item implements Serializable {
 
         deliveries.put(delivery.getID(),delivery);
     }
-    public HashMap<ID,Deposit> getDeposits(){
+    public HashMap<Integer,Deposit> getDeposits(){
         return this.deposits;
     }
 

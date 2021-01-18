@@ -6,23 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CompanyEmployees {
-    private HashMap<ID, Driver> drivers;
-    private HashMap<ID, Deliverer> deliverers;
-    private HashMap<ID, Manager> managers;
+    private HashMap<Integer, Driver> drivers;
+    private HashMap<Integer, Deliverer> deliverers;
+    private HashMap<Integer, Manager> managers;
     public CompanyEmployees() {
-         this.drivers = new HashMap<ID, Driver>();
-        this.deliverers = new HashMap<ID, Deliverer>();
-       this.managers = new HashMap<ID, Manager>();
+         this.drivers = new HashMap<Integer, Driver>();
+        this.deliverers = new HashMap<Integer, Deliverer>();
+       this.managers = new HashMap<Integer, Manager>();
     }
 
 
-    public void addDriver(ID ID, Driver driver){
+    public void addDriver(int ID, Driver driver){
         drivers.put( ID,driver);
     }
-    public void addDeliverer(ID ID,Deliverer deliverer){
+    public void addDeliverer(int ID,Deliverer deliverer){
         deliverers.put(ID,deliverer);
     }
-    public void addManager(ID ID ,Manager manager){
+    public void addManager(int ID ,Manager manager){
         managers.put(ID,manager);
     }
     public boolean hasEmployeesInCategory(String category, String name) {
@@ -64,15 +64,15 @@ public class CompanyEmployees {
         }
     }
 
-    public boolean hasDriver(ID driverID){
+    public boolean hasDriver(int driverID){
         return drivers.containsKey(driverID);
     }
 
-    public Driver getDriver(ID driverID){
+    public Driver getDriver(int driverID){
         return drivers.get(driverID);
     }
 
-    public boolean hasEmployeeByID(ID employeeID) {
+    public boolean hasEmployeeByID(int employeeID) {
         if(drivers.containsKey(employeeID)){
             return true;
         }else if(deliverers.containsKey(employeeID)){
@@ -84,15 +84,15 @@ public class CompanyEmployees {
         }
     }
 
-    public boolean hasDeliverer(ID employeeID) {
+    public boolean hasDeliverer(int employeeID) {
         return deliverers.containsKey(employeeID);
     }
 
-    public Deliverer getDeliverer(ID employeeID) {
+    public Deliverer getDeliverer(int employeeID) {
         return deliverers.get(employeeID);
     }
 
-    public Employee getEmployee(ID employeeID) {
+    public Employee getEmployee(int employeeID) {
         if(drivers.containsKey(employeeID)){
             return drivers.get(employeeID);
         }else if (deliverers.containsKey(employeeID)){
