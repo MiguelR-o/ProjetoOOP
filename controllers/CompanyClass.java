@@ -66,6 +66,11 @@ public class CompanyClass implements Company , Serializable {
         return  companyPlaces.get(place);
     }
 
+    @Override
+    public Employee getEmployeeByID(int clientManagerID) {
+        return companyEmployees.getEmployee(clientManagerID);
+    }
+
 
     public ArrayList<String> prepareItemOutputCC(Client client,int ID){
         ArrayList<String> output = new ArrayList<String>();
@@ -124,11 +129,9 @@ public class CompanyClass implements Company , Serializable {
         return  employeeMap;
     }
 
-    public void addItemQuantity(HashMap<Integer,String> items, Client client){
-        //TODO!!!!
-        for(Integer item:items.keySet()){
-            client.getItemByID(item).addAmount(Integer.parseInt(items.get(item)));
-        }
+    public void addItemQuantity(Client client,int itemID,int value){
+        //
+        
     }
 
     @Override

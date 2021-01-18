@@ -200,8 +200,8 @@ public class Cli {
                     String strClientID = command[1];
                     if(companyClass.hasClient(strClientID)){
                         Client client = companyClass.getClientByID(Integer.parseInt(strClientID));
-                        System.out.printf(client.getName());
-                        System.out.printf(companyClass.getClientByID(client.getClientManagerID()).getName());
+                        System.out.println(client.getName());
+                        System.out.println(companyClass.getEmployeeByID(client.getClientManagerID()).getName());
                         System.out.println("Items:");
                         for (int key : client.getItemMap().keySet()){
                            ArrayList<String> output = companyClass.prepareItemOutputCC(client,key);

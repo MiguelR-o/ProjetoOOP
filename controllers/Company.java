@@ -101,4 +101,6 @@ public interface Company {
     ArrayList<String> itemOutputCCPermissions(Client client, int key);
 
     Place getPlaceByID(int place);
+
+    Employee getEmployeeByID(int clientManagerID);
 }
