@@ -254,7 +254,6 @@ public class CompanyClass implements Company , Serializable {
             int elementID = Integer.parseInt(element);
             if (driverSet.size()<2){
                 if(companyEmployees.hasDriver(elementID)){
-                    System.out.println(companyEmployees.getDriver(elementID).getPermission());
                     driverSet.add(companyEmployees.getDriver(elementID).getPermission());
                 }
             }if (delivererSet.size() <2 ){
