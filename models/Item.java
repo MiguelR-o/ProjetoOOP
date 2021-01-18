@@ -11,7 +11,7 @@ public class Item implements Serializable {
     private ArrayList<String> permissions;
     private int amount;
     private HashMap<ID,Deposit> deposits;
-    private HashMap<ID,Delivery> deliverys;
+    private HashMap<ID,Delivery> deliveries;
 
 
     public Item(String name, ID IdNumber,ID clientID, String[] permissions){
@@ -36,12 +36,13 @@ public class Item implements Serializable {
     public void withdrawAmount(int value){
         this.amount -= value;
     }
-    public HashMap<ID,Delivery> getDeliverys(){
-        return this.deliverys;
+    public HashMap<ID,Delivery> getDeliveries(){
+        return this.deliveries;
     }
 
     public void addDelivery(Delivery delivery){
-        deposits.put(delivery.getID(),delivery);
+
+        deliveries.put(delivery.getID(),delivery);
     }
     public HashMap<ID,Deposit> getDeposits(){
         return this.deposits;

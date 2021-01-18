@@ -99,7 +99,7 @@ public class CompanyClass implements Company {
 
     public HashMap<ID,Item> addItemQuantity(HashMap<ID,String> items, Client client){
         for(ID item:items.keySet()){
-            client.getItemByID(item).addAmount(items.get(item));
+            client.getItemByID(item).addAmount(Integer.parseInt(items.get(item)));
         }
     }
 
@@ -110,9 +110,9 @@ public class CompanyClass implements Company {
         Place place = companyPlaces.get(placID);
         Client client = companyClients.get(clienID);
         HashMap<ID,Employee> employeeMap = createEmployeeMap(employeeIDs);
-        //HashMap<ID,Item> itemMap = createItemMap(items.keySet(),client);
-        Deposit deposit = new Deposit(clienID,place,client, items,employeeMap);
+        Deposit deposit = new Deposit(clienID,placID,client, items,employeeMap);
         client.addDeposit(deposit);
+
         //add it to client , all employees that participate , to all items
         //increase the amount of items in client
         return deposit.getDepositID().getIDValue();
@@ -255,12 +255,6 @@ public class CompanyClass implements Company {
         return companyClients.get(clientID);
     }
 
-    @Override
-    public int getEmployeeID(Employee employee) {
-        return 0;
-    }
-
-    @Override
     public Employee getProfessional(String name, String category) {
         return null;
     }

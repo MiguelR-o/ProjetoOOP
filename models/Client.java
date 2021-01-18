@@ -12,7 +12,7 @@ public class Client implements Serializable {
     private ID clientManagerID;
     private HashMap<ID, Item> items;
     private HashMap<ID, Deposit> deposits;
-    private HashMap<ID, Delivery> deliverys;
+    private HashMap<ID, Delivery> deliveries;
 
     public Client(String name, ID ID, ID managerID) {
         this.name = name;
@@ -42,6 +42,10 @@ public class Client implements Serializable {
 
     public void addDeposit(Deposit deposit) {
         deposits.put(deposit.getDepositID(), deposit);
+    }
+
+    public ID getClientManagerID(){
+        return this.clientManagerID;
     }
 
     public HashMap<ID, Deposit> getDepositMap() {

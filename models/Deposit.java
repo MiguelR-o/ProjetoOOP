@@ -10,9 +10,9 @@ public class Deposit implements Serializable {
     private Client client;
     private HashMap<ID,String> items; //ItemID _ amount
     private HashMap<ID,Employee> employees;
-    private Place place; //might want a PLACE object
+    private ID place; //might want a PLACE object
 
-    public Deposit(ID depositID, Place place , Client client, HashMap<ID,String> itemMap , HashMap<ID,Employee> employeeMap) {
+    public Deposit(ID depositID, ID place , Client client, HashMap<ID,String> itemMap , HashMap<ID,Employee> employeeMap) {
         this.ID = depositID;
         this.place = place;
         this.client = client;
