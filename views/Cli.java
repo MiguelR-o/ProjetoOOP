@@ -60,7 +60,7 @@ public class Cli {
                         if (itemPermissions[0].equals("")) {
                             String[] defaultPermission = {"N"};
                             int itemID = companyClass.registerItem(itemName, clientID, defaultPermission);
-                            System.out.printf("Item registado para o client %s com o identificador %s", clientID,
+                            System.out.printf("Item registado para o client %s com o identificador %s%n", clientID,
                                     itemID);
                         } else {
                             for (String itemPermission : itemPermissions) {
@@ -72,7 +72,7 @@ public class Cli {
                                 System.out.println("Permissão inválida.");
                             } else {
                                 int itemID = companyClass.registerItem(itemName, clientID, itemPermissions);
-                                System.out.printf("Item registado para o client %s com o identificador %s", clientID,itemID);
+                                System.out.printf("Item registado para o client %s com o identificador %s%n", clientID,itemID);
                             }
                         }
                     } else {
@@ -85,7 +85,7 @@ public class Cli {
                         System.out.println("Local existente.");
                     } else {
                         int placeID = companyClass.registerPlace(placeName);
-                        System.out.printf("Local registado com o identificador %d", placeID);
+                        System.out.printf("Local registado com o identificador %d%n", placeID);
                     }
                     break;
                 case "RD":
@@ -117,7 +117,7 @@ public class Cli {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
                                             int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,
                                                     employeeIDs, itemsDeposited);
-                                            System.out.printf("Depósito registado com o identificador %d", depositID);
+                                            System.out.printf("Depósito registado com o identificador %d%n", depositID);
                                         } else {
                                             System.out.println("Carregador sem permissões.");
                                         }
@@ -142,6 +142,7 @@ public class Cli {
 
                     break;
                 case "RE":
+                    /*
                     String stringClientID = command[1];
                     String stringPlaceID = command[2];
                     line = scanner.nextLine();
@@ -170,7 +171,7 @@ public class Cli {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
                                             int depositID = companyClass.registerDeposit(stringClientID, stringPlaceID,
                                                     employeeIDs, itemsDeposited);
-                                            System.out.printf("Depósito registado com o identificador %d", depositID);
+                                            System.out.printf("Depósito registado com o identificador %d%n", depositID);
                                         } else {
                                             System.out.println("Carregador sem permissões.");
                                         }
@@ -191,7 +192,7 @@ public class Cli {
                         }
                     } else {
                         System.out.println("Cliente inexistente.");
-                    }
+                    }*/
                     break;
                 case "CC":
                     break;
@@ -229,7 +230,7 @@ public class Cli {
                     }
                     catch (Exception e){
                         e.printStackTrace();
-                        System.out.printf("Ficheiro inexistente.");
+                        System.out.println("Ficheiro inexistente.");
                         return;
                     }
                 case "":
