@@ -167,12 +167,12 @@ public class Cli {
                     }
                     if (companyClass.hasClient(strIDClient)) {
                         if (companyClass.hasPlaceWithID(strIDPlace)) {
-                            if (companyClass.validItems(itemsDeposited,Integer.parseInt(strIDClient))) {
+                            if (companyClass.validItems(itemsDelivered,Integer.parseInt(strIDClient))) {
                                 if(companyClass.validItemQuantity(itemsDelivered,Integer.parseInt(strIDClient))){
                                 if (companyClass.validEmployeesID(IDemployees)) {
                                     HashMap<String, Set> permissionMap = companyClass.createPermissionMap(IDemployees);
                                     Set<String> summedPermissions = companyClass.storeItemsDepositedPermissions(
-                                            itemsDeposited, Integer.parseInt(strIDClient));
+                                            itemsDelivered, Integer.parseInt(strIDClient));
                                     if (companyClass.validDriverPermissions(permissionMap, summedPermissions)) {
                                         if (companyClass.validDelivererPermissions(permissionMap, summedPermissions)) {
                                             int deliveryID = companyClass.registerDelivery(strIDClient, strIDClient,
