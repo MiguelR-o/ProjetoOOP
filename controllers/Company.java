@@ -109,4 +109,6 @@ public interface Company {
     ArrayList<String> extendPermissions(ArrayList<String> permissions);
 
     void saveFile(String saveFileName);
+
+    boolean hasEmployeeByID(int parseInt);
 }

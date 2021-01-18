@@ -254,9 +254,16 @@ public class Cli {
                     break;
 
                 case "CE":
+
                     break;
 
                 case "CF":
+                    String strEmployeeID = command[1];
+                    if(companyClass.hasEmployeeByID(Integer.parseInt(strEmployeeID))){
+                       //TODO!!!
+                    }else {
+                        System.out.println("Funcionário inexistente.");
+                    }
                     break;
 
                 case "G":

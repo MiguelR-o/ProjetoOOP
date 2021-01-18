@@ -178,6 +178,11 @@ public class CompanyClass implements Company , Serializable {
             }
         }
 
+    @Override
+    public boolean hasEmployeeByID(int parseInt) {
+        return companyEmployees.hasEmployeeByID(parseInt);
+    }
+
 
     public void addItemQuantity(Client client, HashMap<Integer,String> items){
         for( int key : items.keySet()){
@@ -187,13 +192,14 @@ public class CompanyClass implements Company , Serializable {
 
     @Override
     public int registerDeposit(String clientID, String placeID,String[] employeeIDs,HashMap<Integer,String> items) {
-        int clienID = Integer.parseInt(clientID);
-        int placID = Integer.parseInt(placeID);
-        Place place = companyPlaces.get(placID);
-        Client client = companyClients.get(clienID);
+        int IDClient = Integer.parseInt(clientID);
+        int IDPlace = Integer.parseInt(placeID);
+        Client client = companyClients.get(IDClient);
+        int depositID = client.getDepositMap().values().size()+1;
         HashMap<Integer,Employee> employeeMap = createEmployeeMap(employeeIDs);
-        Deposit deposit = new Deposit(clienID,placID,client, items,employeeMap);
+        Deposit deposit = new Deposit(depositID,IDPlace,client, items,employeeMap);
         client.addDeposit(deposit);
+
         addItemQuantity(companyClients.get(clienID),items);
         return deposit.getDepositID();
     }
