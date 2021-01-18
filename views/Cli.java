@@ -10,6 +10,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Cli {
+    public Cli(){
+        start();
+    }
     public void start() {
         Company companyClass = new CompanyClass();
         Scanner scanner = new Scanner(System.in);
@@ -25,24 +28,19 @@ public class Cli {
                     String name = nameConcatenation(3, command);
                     if (!companyClass.hasCategory(category)) {
                         System.out.println("Categoria inexistente.");
-                    } else if (companyClass.validPermission(permission, category)) {
+                    } else if (companyClass.validPermission(category, permission)) {
                         System.out.println("Permissão inexistente.");
                     } else if (companyClass.hasProfessional(name, category)) {
                         System.out.println("Funcionário existente.");
                     } else {
-                        companyClass.registerEmployee(category, permission, name);
+                        int employeeID = companyClass.registerEmployee(category, permission, name);
                         System.out.println("Funcionário registado com o identificador "
-                                + companyClass.getEmployeeID(companyClass.getProfessional(name, category)));
+                                + employeeID);
                     }
                     break;
                 case "RC":
-                    // Nome contem espaços e deve ser unico no sistema
-                    // IDCliente numero unico atribuido pelo sistema (starts @ 1)
                     String employeeID = command[1];
-                    String nameClient = "";
-                    for (int i = 2; i < line.length(); i++) {
-                        nameClient += command[i];
-                    }
+                    String nameClient = nameConcatenation(2, command);
                     if (companyClass.hasClientName(nameClient)) {
                         System.out.println("Cliente existente.");
                     } else {
@@ -51,6 +49,7 @@ public class Cli {
                                 "Cliente registado com o identificador " + clientID);
                     }
                     break;
+
                 case "RI":
                     String clientID = command[1];
                     String itemName = command[2];

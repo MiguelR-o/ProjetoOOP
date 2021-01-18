@@ -20,10 +20,11 @@ public interface Company {
     // but it should then search for the Permission inside the Category
     // class/interface/Dic
 
-    void registerEmployee(String category, String permission, String name);
+    int registerEmployee(String category, String permission, String name);
     // Creates instance of one of the classes that implements/extends Employee based
     // on its
     // category and adds the object to the Employees Dic in Company.
+    //returns employeeID
 
     boolean hasClient(String clientID);
     // Checks in companny's clients Dic for the key clientID which contains the
@@ -41,14 +42,6 @@ public interface Company {
     Client getClientID(ID clientID);
     // Searches inside companyClients for the mathcing ID and returns client object
 
-
-    int getEmployeeID(Employee employee);
-    // returns employee.getID();
-
-    Employee getProfessional(String name, String category);
-    // Searches in companny's Employees Dic for the Professional inside the given
-    // Category Dic with the
-    // key name and returns the object as an Employee
 
     int registerItem(String itemName, String clientID, String[] itemPermissions);
     // register the given item and adds it to the Item DIC in company witht the

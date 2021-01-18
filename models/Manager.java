@@ -5,18 +5,5 @@ public class Manager extends Employee{
         super(name, ID, type);
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 
-    @Override
-    public ID getID() {
-        return null;
-    }
-
-    @Override
-    public String getEmployeeType() {
-        return null;
-    }
 }

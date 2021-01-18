@@ -9,8 +9,8 @@ import java.util.*;
 
 public class CompanyClass implements Company {
     private CompanyEmployees companyEmployees;
-    private HashMap<ID,Place> companyPlaces;
-    private HashMap<ID,Client> companyClients;
+    private HashMap<Integer,Place> companyPlaces;
+    private HashMap<Integer,Client> companyClients;
     private Permission permissions;
     private ID employeeID;
     private ID placeID;
@@ -22,8 +22,8 @@ public class CompanyClass implements Company {
 
         this.permissions = new Permission();
         this.companyEmployees = new CompanyEmployees();
-        this.companyClients = new HashMap<ID, Client>();
-        this.companyPlaces = new HashMap<ID,Place>();
+        this.companyClients = new HashMap<Integer, Client>();
+        this.companyPlaces = new HashMap<Integer,Place>();
         this.employeeID = new ID(1);
         this.clientID = new ID(1);
         this.placeID = new ID(1);
@@ -42,12 +42,12 @@ public class CompanyClass implements Company {
     }
 
     @Override
-    public boolean validItems(HashMap<ID, String> itemsDeposited, ID clientID) {
+    public boolean validItems(HashMap<Integer, String> itemsDeposited, ID clientID) {
        //go to the given client and getItems , check for each key of the given map if exists in getItems Map
-       Client client= companyClients.get(clientID);
+       Client client= companyClients.get(clientID.getIDValue());
        HashMap<ID,Item> items = client.getItemMap();
-       Set<ID> depositedIDs =  itemsDeposited.keySet();
-       for (ID depositID : depositedIDs){
+       Set<Integer> depositedIDs =  itemsDeposited.keySet();
+       for (Integer depositID : depositedIDs){
            if(!items.containsKey(depositID)){
                return false;
            }
@@ -97,7 +97,8 @@ public class CompanyClass implements Company {
         return  employeeMap;
     }
 
-    public HashMap<ID,Item> addItemQuantity(HashMap<ID,String> items, Client client){
+    public void addItemQuantity(HashMap<ID,String> items, Client client){
+        //TODO!!!!
         for(ID item:items.keySet()){
             client.getItemByID(item).addAmount(Integer.parseInt(items.get(item)));
         }
@@ -196,7 +197,7 @@ public class CompanyClass implements Company {
     }
 
     @Override
-    public void registerEmployee(String category, String permission, String name) {
+    public int registerEmployee(String category, String permission, String name) {
         if (companyEmployees.isEmpty()){
             this.employeeID.subtractOne();
         }
@@ -204,15 +205,20 @@ public class CompanyClass implements Company {
         if(category.equals("Condutor")){
             Driver employee = new Driver(name,employeeID,permission);
             companyEmployees.addDriver(employee.getID(), employee);
+            return employee.getID().getIDValue();
 
         }else if(category.equals("Carregador")){
             Deliverer employee = new Deliverer(name,employeeID,permission);
             companyEmployees.addDeliverer(employee.getID(), employee);
 
+            return employee.getID().getIDValue();
+
         }else if(category.equals("Gestor")){
             Manager employee = new Manager(name,employeeID,permission);
             companyEmployees.addManager(employee.getID(), employee);
+            return employee.getID().getIDValue();
         }
+        return 0;
 
 
     }
@@ -220,7 +226,13 @@ public class CompanyClass implements Company {
     @Override
     public boolean hasClient(String clientID) {
         ID IDClient = convertToID(Integer.parseInt(clientID));
-        return companyClients.containsKey(IDClient);
+        Set<ID> coll = companyClients.keySet();
+        for (ID key : coll){
+            if(key.getIDValue() == IDClient.getIDValue()){
+               return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -240,11 +252,13 @@ public class CompanyClass implements Company {
         if (companyClients.isEmpty()){
             ID managerID = convertToID(Integer.parseInt(employeeID));
             Client client = new Client(nameClient,clientID,managerID);
+            companyClients.put(client.getID(),client);
             return client.getID().getIDValue();
         }else{
             clientID.addOne();
             ID managerID = convertToID(Integer.parseInt(employeeID));
             Client client = new Client(nameClient,clientID,managerID);
+            companyClients.put(client.getID(),client);
             return client.getID().getIDValue();
         }
 
@@ -255,9 +269,6 @@ public class CompanyClass implements Company {
         return companyClients.get(clientID);
     }
 
-    public Employee getProfessional(String name, String category) {
-        return null;
-    }
 
     @Override
     public int registerItem(String itemName, String clientID, String[] itemPermissions) {

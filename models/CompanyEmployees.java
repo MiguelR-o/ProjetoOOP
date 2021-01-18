@@ -9,12 +9,10 @@ public class CompanyEmployees {
     private HashMap<ID, Driver> drivers;
     private HashMap<ID, Deliverer> deliverers;
     private HashMap<ID, Manager> managers;
-    // TODO tudo com os 3 mapas !!
     public CompanyEmployees() {
-        // TODO Resolve the issue with the heritage!!
-        HashMap<ID, Driver> drivers = new HashMap<ID, Driver>();
-        HashMap<ID, Deliverer> deliverers = new HashMap<ID, Deliverer>();
-        HashMap<ID, Manager> managers = new HashMap<ID, Manager>();
+         this.drivers = new HashMap<ID, Driver>();
+        this.deliverers = new HashMap<ID, Deliverer>();
+       this.managers = new HashMap<ID, Manager>();
     }
 
 
